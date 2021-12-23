@@ -43,7 +43,24 @@ const menuItems = [
     }
 ]
 
+//Cart Item Construction
+let newItemContainer = document.createElement('LI')
+let plate = document.createElement('DIV')
+let quantity1 = document.createElement('DIV')
+let quantity2 = document.createElement('DIV')
+let content = document.createElement('DIV')
+let quantityWrapper = document.createElement('DIV')
+let subTotal = document.createElement('DIV')
+let menuItem = document.createElement('P')
+let price = document.createElement('P')
+let decreaseButton = document.createElement('BUTTON')
+let increaseButton = document.createElement('BUTTON')
+plate.setAttribute('class', 'plate')
+quantity1.setAttribute('class', 'quantity')
+content.setAttribute('class', 'content')
 
+
+//Menu Button
 let addToCartButton = document.querySelectorAll('button.add')
 console.log(addToCartButton)
 
@@ -53,7 +70,7 @@ checkMark.setAttribute('alt', 'Check')
 
 
 
-
+//Menu Button Action
 let buttonFunction = addToCartButton.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
@@ -65,15 +82,7 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         eachButton.setAttribute('class', 'in-cart')
         eachButton.innerText = 'In Cart'
 
-        //Transfer Item To Cart
-        let newItemContainer = document.createElement('LI')
-        let plate = document.createElement('DIV')
-        let quantity = document.createElement('DIV')
-        let content = document.createElement('DIV')
-        let qualityWrapper = document.createElement('DIV')
-        let subTotal = document.createElement('DIV')
-        let menuItem = document.createElement('P')
-        let price = document.createElement('P')
+        
 
 
 
