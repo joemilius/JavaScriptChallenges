@@ -78,13 +78,30 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         // let checkMark = document.createElement('img')
         // checkMark.setAttribute('src', 'images/check.svg')
         // checkMark.setAttribute('alt', 'Check')
-        eachButton.appendChild(checkMark)
+        // eachButton.innerText = "In Cart"
+        // eachButton.appendChild(checkMark)
         eachButton.setAttribute('class', 'in-cart')
-        eachButton.innerText = 'In Cart'
+        eachButton.innerHTML = ` 
+            <img src="images/check.svg" alt="Check" />
+            In Cart`
+
+        let itemContainer = document.createElement("li")
+        let plate = document.createElement('div')
+        let plateImage = document.createElement('img')
+        let quantity = document.createElement('div')
+        let content = document.createElement('div')
+        let menuItem = document.createElement('p')
+        let price = document.createElement('p')
+        let quantityWrapper = document.createElement('div')
+        let decreaseButton = document.createElement('button')
+        let decreaseImage = document.createElement('img')
+        let increaseButton = document.createElement('button')
+        let increaseImage = document.createElement('img')
+        let subtotal = document.createElement('div')
+
+
 
         
-
-
 
     })
 })
