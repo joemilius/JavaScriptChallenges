@@ -43,22 +43,6 @@ const menuItems = [
     }
 ]
 
-//Cart Item Construction
-let newItemContainer = document.createElement('LI')
-let plate = document.createElement('DIV')
-let quantity1 = document.createElement('DIV')
-let quantity2 = document.createElement('DIV')
-let content = document.createElement('DIV')
-let quantityWrapper = document.createElement('DIV')
-let subTotal = document.createElement('DIV')
-let menuItem = document.createElement('P')
-let price = document.createElement('P')
-let decreaseButton = document.createElement('BUTTON')
-let increaseButton = document.createElement('BUTTON')
-plate.setAttribute('class', 'plate')
-quantity1.setAttribute('class', 'quantity')
-content.setAttribute('class', 'content')
-
 
 //Menu Button
 let addToCartButton = document.querySelectorAll('button.add')
@@ -74,34 +58,56 @@ checkMark.setAttribute('alt', 'Check')
 let buttonFunction = addToCartButton.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
-        
-        // let checkMark = document.createElement('img')
-        // checkMark.setAttribute('src', 'images/check.svg')
-        // checkMark.setAttribute('alt', 'Check')
-        // eachButton.innerText = "In Cart"
-        // eachButton.appendChild(checkMark)
+        console.log(event)
+
+        //Changes the Add to Cart Button
         eachButton.setAttribute('class', 'in-cart')
         eachButton.innerHTML = ` 
             <img src="images/check.svg" alt="Check" />
             In Cart`
 
-        let itemContainer = document.createElement("li")
-        let plate = document.createElement('div')
+        //Cart Item Construction
+        let cartContainer = document.querySelector('.cart-summary')
+        let newItemContainer = document.createElement('LI')
+        let plate = document.createElement('DIV')
         let plateImage = document.createElement('img')
-        let quantity = document.createElement('div')
-        let content = document.createElement('div')
-        let menuItem = document.createElement('p')
-        let price = document.createElement('p')
-        let quantityWrapper = document.createElement('div')
-        let decreaseButton = document.createElement('button')
+        let quantity = document.createElement('DIV')
+        let content = document.createElement('DIV')
+        let menuItem = document.createElement('P')
+        let price = document.createElement('P')
+        let quantityWrapper = document.createElement('DIV')
+        let decreaseButton = document.createElement('BUTTON')
         let decreaseImage = document.createElement('img')
-        let increaseButton = document.createElement('button')
+        let increaseButton = document.createElement('BUTTON')
         let increaseImage = document.createElement('img')
-        let subtotal = document.createElement('div')
+        let subTotal = document.createElement('DIV')
+        plate.setAttribute('class', 'plate')
+        quantity.setAttribute('class', 'quantity')
+        content.setAttribute('class', 'content')
+        menuItem.setAttribute('class', 'menu-item')
+        price.setAttribute('class', 'price')
+        quantityWrapper.setAttribute('class', 'quantity__wrapper')
+        decreaseButton.setAttribute('class', 'decrease')
+        increaseButton.setAttribute('class', 'increase')
+        subTotal.setAttribute('class', 'subtotal')
+
+        //Adds Cart Item
+        cartContainer.appendChild(newItemContainer)
+        newItemContainer.appendChild(plate)
+        newItemContainer.appendChild(content)
+        newItemContainer.appendChild(quantityWrapper)
+        newItemContainer.appendChild(subtotal)
+        plate.appendChild(plateImage)
+        plate.appendChild(quantity)
+        content.appendChild(menuItem)
+        content.appendChild(price)
+        quantityWrapper.appendChild(decreaseButton)
+        quantityWrapper.appendChild(increaseButton)
+        decreaseButton.appendChild(decreaseImage)
+        increaseButton.appendChild(increaseImage)
 
 
-
-        
+    
 
     })
 })
