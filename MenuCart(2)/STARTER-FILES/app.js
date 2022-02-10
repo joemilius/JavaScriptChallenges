@@ -46,7 +46,7 @@ const menuItems = [
 
 //Menu Button
 let addToCartButton = document.querySelectorAll('button.add')
-console.log(addToCartButton)
+
 
 let checkMark = document.createElement('IMG')
 checkMark.setAttribute('src', 'images/check.svg')
@@ -58,7 +58,9 @@ checkMark.setAttribute('alt', 'Check')
 let buttonFunction = addToCartButton.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
-        console.log(event)
+        console.log(event.target.parentNode.childNodes)
+        let dishName = event.target.parentNode.childNodes[1].innerText
+        let dishCost = event.target.parentNode.childNodes[3].innerText
 
         //Changes the Add to Cart Button
         eachButton.setAttribute('class', 'in-cart')
@@ -82,6 +84,9 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         let increaseImage = document.createElement('img')
         let subTotal = document.createElement('DIV')
         plate.setAttribute('class', 'plate')
+        plateImage.setAttribute('src', "images/plate__fish-sticks-fries.png")
+        plateImage.setAttribute('alt', "Fish Sticks and Fries")
+        plateImage.setAttribute('class', 'plate')
         quantity.setAttribute('class', 'quantity')
         content.setAttribute('class', 'content')
         menuItem.setAttribute('class', 'menu-item')
@@ -89,7 +94,12 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         quantityWrapper.setAttribute('class', 'quantity__wrapper')
         decreaseButton.setAttribute('class', 'decrease')
         increaseButton.setAttribute('class', 'increase')
+        increaseImage.setAttribute('src', "images/chevron.svg")
+        decreaseImage.setAttribute('src', "images/chevron.svg")
         subTotal.setAttribute('class', 'subtotal')
+
+        //Sets Values For Cart Item to Corresponding Menu Item
+        
 
         //Adds Cart Item
         cartContainer.appendChild(newItemContainer)
