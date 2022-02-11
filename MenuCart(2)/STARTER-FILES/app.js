@@ -108,8 +108,8 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         quantityValue = 1
         quantity1.innerText = quantityValue
         quantity2.innerText = quantityValue
-        console.log(dishCost)
-        //subtotal.innerText = parseFloat(dishCost) * quantityValue
+        console.log(dishCost.substring(1))
+        subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
 
         //Adds Cart Item
         cartContainer.appendChild(newItemContainer)
@@ -132,7 +132,11 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         })
 
         increaseButton.addEventListener('click', (event) => {
-                console.log(event)
+                //console.log(event.target.parentNode.previousSibling)
+            let quantityAmount = parseInt(event.target.parentNode.previousSibling.innerText)
+            let firstQuantityElem = event.target.parentNode.parentNode.parentNode.childNodes[0].childNodes[1]
+            let secondQuantityElem = event.target.parentNode.previousSibling
+            console.log(secondQuantityElem)
         })
 
     
