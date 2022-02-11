@@ -58,48 +58,58 @@ checkMark.setAttribute('alt', 'Check')
 let buttonFunction = addToCartButton.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
-        console.log(event.target.parentNode.childNodes)
-        let dishName = event.target.parentNode.childNodes[1].innerText
-        let dishCost = event.target.parentNode.childNodes[3].innerText
-
+        
         //Changes the Add to Cart Button
         eachButton.setAttribute('class', 'in-cart')
         eachButton.innerHTML = ` 
-            <img src="images/check.svg" alt="Check" />
-            In Cart`
+        <img src="images/check.svg" alt="Check" />
+        In Cart`
+        
+        //Values of Menu Item
+        let dishName = event.target.parentNode.childNodes[1].innerText
+        let dishCost = event.target.parentNode.childNodes[3].innerText
+        let dishImage = event.target.parentNode.parentNode.childNodes[1].childNodes[1].src
 
         //Cart Item Construction
         let cartContainer = document.querySelector('.cart-summary')
         let newItemContainer = document.createElement('LI')
         let plate = document.createElement('DIV')
         let plateImage = document.createElement('img')
-        let quantity = document.createElement('DIV')
+        let quantity1 = document.createElement('DIV')
         let content = document.createElement('DIV')
         let menuItem = document.createElement('P')
         let price = document.createElement('P')
         let quantityWrapper = document.createElement('DIV')
         let decreaseButton = document.createElement('BUTTON')
         let decreaseImage = document.createElement('img')
+        let quantity2 = document.createElement('DIV')
         let increaseButton = document.createElement('BUTTON')
         let increaseImage = document.createElement('img')
-        let subTotal = document.createElement('DIV')
+        let subtotal = document.createElement('DIV')
         plate.setAttribute('class', 'plate')
-        plateImage.setAttribute('src', "images/plate__fish-sticks-fries.png")
+        plateImage.setAttribute('src', `${dishImage}`)
         plateImage.setAttribute('alt', "Fish Sticks and Fries")
         plateImage.setAttribute('class', 'plate')
-        quantity.setAttribute('class', 'quantity')
+        quantity1.setAttribute('class', 'quantity')
         content.setAttribute('class', 'content')
         menuItem.setAttribute('class', 'menu-item')
         price.setAttribute('class', 'price')
         quantityWrapper.setAttribute('class', 'quantity__wrapper')
         decreaseButton.setAttribute('class', 'decrease')
+        quantity2.setAttribute('class', 'quantity')
         increaseButton.setAttribute('class', 'increase')
         increaseImage.setAttribute('src', "images/chevron.svg")
         decreaseImage.setAttribute('src', "images/chevron.svg")
-        subTotal.setAttribute('class', 'subtotal')
+        subtotal.setAttribute('class', 'subtotal')
 
         //Sets Values For Cart Item to Corresponding Menu Item
-        
+        menuItem.innerHTML = dishName
+        price.innerText = dishCost
+        quantityValue = 1
+        quantity1.innerText = quantityValue
+        quantity2.innerText = quantityValue
+        console.log(dishCost)
+        //subtotal.innerText = parseFloat(dishCost) * quantityValue
 
         //Adds Cart Item
         cartContainer.appendChild(newItemContainer)
@@ -108,14 +118,22 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         newItemContainer.appendChild(quantityWrapper)
         newItemContainer.appendChild(subtotal)
         plate.appendChild(plateImage)
-        plate.appendChild(quantity)
+        plate.appendChild(quantity1)
         content.appendChild(menuItem)
         content.appendChild(price)
         quantityWrapper.appendChild(decreaseButton)
+        quantityWrapper.appendChild(quantity2)
         quantityWrapper.appendChild(increaseButton)
         decreaseButton.appendChild(decreaseImage)
         increaseButton.appendChild(increaseImage)
 
+        decreaseButton.addEventListener('click', (event) => {
+                console.log(event)
+        })
+
+        increaseButton.addEventListener('click', (event) => {
+                console.log(event)
+        })
 
     
 
