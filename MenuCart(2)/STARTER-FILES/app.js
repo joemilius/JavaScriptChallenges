@@ -52,6 +52,11 @@ let checkMark = document.createElement('IMG')
 checkMark.setAttribute('src', 'images/check.svg')
 checkMark.setAttribute('alt', 'Check')
 
+let cartSubtotalElem = document.querySelector('.amount.price.subtotal')
+let cartTaxElem = document.querySelector('.amount.price.tax')
+let cartTotalElem = document.querySelector('.amount.price.total')
+console.log(cartTotalElem)
+
 
 
 //Menu Button Action
@@ -127,16 +132,21 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         decreaseButton.appendChild(decreaseImage)
         increaseButton.appendChild(increaseImage)
 
+        // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
                 console.log(event)
         })
 
+        // Increase quantity button
         increaseButton.addEventListener('click', (event) => {
                 //console.log(event.target.parentNode.previousSibling)
             let quantityAmount = parseInt(event.target.parentNode.previousSibling.innerText)
+            let subtotalAmount = parseFloat(event.target.parentNode.parentNode.nextSibling.innerText.substring(1))
             let firstQuantityElem = event.target.parentNode.parentNode.parentNode.childNodes[0].childNodes[1]
             let secondQuantityElem = event.target.parentNode.previousSibling
-            console.log(secondQuantityElem)
+            let SubtotalElem = event.target.parentNode.parentNode.nextSibling
+
+            console.log(subtotalAmount)
         })
 
     
