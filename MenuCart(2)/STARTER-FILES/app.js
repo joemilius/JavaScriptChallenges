@@ -55,7 +55,10 @@ checkMark.setAttribute('alt', 'Check')
 let cartSubtotalElem = document.querySelector('.amount.price.subtotal')
 let cartTaxElem = document.querySelector('.amount.price.tax')
 let cartTotalElem = document.querySelector('.amount.price.total')
-console.log(cartTotalElem)
+let cartSubtotalAmount = parseFloat(cartSubtotalElem.innerText.substring(1))
+let cartTaxAmount = parseFloat(cartTaxElem.innerText.substring(1))
+let cartTotalAmount = parseFloat(cartTotalElem.innerText.substring(1))
+console.log(cartTotalAmount)
 
 
 
@@ -144,7 +147,12 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
             let subtotalAmount = parseFloat(event.target.parentNode.parentNode.nextSibling.innerText.substring(1))
             let firstQuantityElem = event.target.parentNode.parentNode.parentNode.childNodes[0].childNodes[1]
             let secondQuantityElem = event.target.parentNode.previousSibling
-            let SubtotalElem = event.target.parentNode.parentNode.nextSibling
+            let subtotalElem = event.target.parentNode.parentNode.nextSibling
+            quantityAmount++
+            subtotalAmount += subtotalAmount
+            firstQuantityElem.innerText = quantityAmount
+            secondQuantityElem.innerText = quantityAmount
+            subtotalElem.innerText = `$${subtotalAmount}`
 
             console.log(subtotalAmount)
         })
