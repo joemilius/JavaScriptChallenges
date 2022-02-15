@@ -134,6 +134,8 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         quantityWrapper.appendChild(increaseButton)
         decreaseButton.appendChild(decreaseImage)
         increaseButton.appendChild(increaseImage)
+        cartSubtotalAmount += parseFloat(dishCost.substring(1))
+        cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
 
         // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
@@ -143,18 +145,19 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         // Increase quantity button
         increaseButton.addEventListener('click', (event) => {
                 //console.log(event.target.parentNode.previousSibling)
-            let quantityAmount = parseInt(event.target.parentNode.previousSibling.innerText)
-            let subtotalAmount = parseFloat(event.target.parentNode.parentNode.nextSibling.innerText.substring(1))
-            let firstQuantityElem = event.target.parentNode.parentNode.parentNode.childNodes[0].childNodes[1]
-            let secondQuantityElem = event.target.parentNode.previousSibling
-            let subtotalElem = event.target.parentNode.parentNode.nextSibling
-            quantityAmount++
-            subtotalAmount += subtotalAmount
-            firstQuantityElem.innerText = quantityAmount
-            secondQuantityElem.innerText = quantityAmount
-            subtotalElem.innerText = `$${subtotalAmount}`
-
-            console.log(subtotalAmount)
+            // let quantityAmount = parseInt(event.target.parentNode.previousSibling.innerText)
+            // let subtotalAmount = parseFloat(event.target.parentNode.parentNode.nextSibling.innerText.substring(1))
+            // let firstQuantityElem = event.target.parentNode.parentNode.parentNode.childNodes[0].childNodes[1]
+            // let secondQuantityElem = event.target.parentNode.previousSibling
+            // let subtotalElem = event.target.parentNode.parentNode.nextSibling
+            quantityValue++
+            cartSubtotalAmount += parseFloat(dishCost.substring(1))
+            //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
+            quantity1.innerText = quantityValue
+            quantity2.innerText = quantityValue
+            subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
+            cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
+            
         })
 
     
