@@ -136,6 +136,8 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         increaseButton.appendChild(increaseImage)
         cartSubtotalAmount += parseFloat(dishCost.substring(1))
         cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
+        cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
+        cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
 
         // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
@@ -152,11 +154,14 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
             // let subtotalElem = event.target.parentNode.parentNode.nextSibling
             quantityValue++
             cartSubtotalAmount += parseFloat(dishCost.substring(1))
+            cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
             //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
             quantity1.innerText = quantityValue
             quantity2.innerText = quantityValue
             subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
             cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
+            cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
+            //cartTotalElem.innerText = `$${cartTotalAmount}`
             
         })
 
