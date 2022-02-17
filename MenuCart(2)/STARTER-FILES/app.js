@@ -138,10 +138,23 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
         cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
         cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
+        cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+        console.log(cartTotalAmount)
+        cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
 
         // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
-                console.log(event)
+            quantityValue--
+            cartSubtotalAmount -= parseFloat(dishCost.substring(1))
+            cartTaxAmount -= parseFloat(dishCost.substring(1)) * 0.0975
+            cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+            //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
+            quantity1.innerText = quantityValue
+            quantity2.innerText = quantityValue
+            subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
+            cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
+            cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
+            cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
         })
 
         // Increase quantity button
@@ -155,12 +168,14 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
             quantityValue++
             cartSubtotalAmount += parseFloat(dishCost.substring(1))
             cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
+            cartTotalAmount = cartSubtotalAmount + cartTaxAmount
             //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
             quantity1.innerText = quantityValue
             quantity2.innerText = quantityValue
             subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
             cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
             cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
+            cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
             //cartTotalElem.innerText = `$${cartTotalAmount}`
             
         })
