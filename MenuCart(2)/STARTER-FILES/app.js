@@ -77,7 +77,7 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         let dishName = event.target.parentNode.childNodes[1].innerText
         let dishCost = event.target.parentNode.childNodes[3].innerText
         let dishImage = event.target.parentNode.parentNode.childNodes[1].childNodes[1].src
-
+        let quantityValue = 1
         //Cart Item Construction
         let cartContainer = document.querySelector('.cart-summary')
         let newItemContainer = document.createElement('LI')
@@ -113,7 +113,6 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         //Sets Values For Cart Item to Corresponding Menu Item
         menuItem.innerHTML = dishName
         price.innerText = dishCost
-        quantityValue = 1
         quantity1.innerText = quantityValue
         quantity2.innerText = quantityValue
         console.log(dishCost.substring(1))
