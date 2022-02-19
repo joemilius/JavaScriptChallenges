@@ -55,12 +55,12 @@ checkMark.setAttribute('alt', 'Check')
 let cartSubtotalElem = document.querySelector('.amount.price.subtotal')
 let cartTaxElem = document.querySelector('.amount.price.tax')
 let cartTotalElem = document.querySelector('.amount.price.total')
-let cartSubtotalAmount = parseFloat(cartSubtotalElem.innerText.substring(1))
-let cartTaxAmount = parseFloat(cartTaxElem.innerText.substring(1))
-let cartTotalAmount = parseFloat(cartTotalElem.innerText.substring(1))
-console.log(cartTotalAmount)
-
-
+let cartSubtotalDollars = parseInt(cartSubtotalElem.innerText.substring(1).split('.')[0])
+let cartSubtotalCents = parseInt(cartSubtotalElem.innerText.substring(1).split('.')[0])
+let cartTaxDollars = parseInt(cartTaxElem.innerText.substring(1).split('.')[0])
+let cartTaxCents = parseInt(cartTaxElem.innerText.substring(1).split('.')[1])
+let cartTotalDollars = parseInt(cartTotalElem.innerText.substring(1).split('.')[0])
+let cartTotalCents = parseInt(cartTotalElem.innerText.substring(1).split('.')[1])
 
 //Menu Button Action
 let buttonFunction = addToCartButton.forEach((eachButton) => {
@@ -74,10 +74,29 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         In Cart`
         
         //Values of Menu Item
+        let quantityValue = 1
         let dishName = event.target.parentNode.childNodes[1].innerText
         let dishCost = event.target.parentNode.childNodes[3].innerText
+        let dishDollars = parseInt(event.target.parentNode.childNodes[3].innerText.substring(1).split('.')[0])
+        let dishCents = parseInt(event.target.parentNode.childNodes[3].innerText.substring(1).split('.')[1])
+        let dishDollarsTotal = parseInt(event.target.parentNode.childNodes[3].innerText.substring(1).split('.')[0]) * quantityValue
+        let dishCentsTotal = parseInt(event.target.parentNode.childNodes[3].innerText.substring(1).split('.')[1]) * quantityValue
+        console.log(dishCents)
         let dishImage = event.target.parentNode.parentNode.childNodes[1].childNodes[1].src
-        let quantityValue = 1
+
+        //Dollars and Cents calculator
+        function costTranslator(dollars, cents){
+            let dollarTotal = dollars
+            let centsTotal = cents
+            if(cents > 100){
+                centsString = centsTotal.toString()
+                dollarTotal += parseInt(centsTotal.substring(0, centsString.length - 2))
+                centsTotal = parseInt(centsString.substring(centsString.length - 2))
+            }
+
+            return `$${dollarTotal}.${centsTotal}`
+        }
+
         //Cart Item Construction
         let cartContainer = document.querySelector('.cart-summary')
         let newItemContainer = document.createElement('LI')
@@ -115,8 +134,7 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         price.innerText = dishCost
         quantity1.innerText = quantityValue
         quantity2.innerText = quantityValue
-        console.log(dishCost.substring(1))
-        subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
+        subtotal.innerText = `$${dishDollarsTotal}.${dishCentsTotal}`
 
         //Adds Cart Item
         cartContainer.appendChild(newItemContainer)
@@ -133,27 +151,33 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
         quantityWrapper.appendChild(increaseButton)
         decreaseButton.appendChild(decreaseImage)
         increaseButton.appendChild(increaseImage)
-        cartSubtotalAmount += parseFloat(dishCost.substring(1))
-        cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
-        cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
-        cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
-        cartTotalAmount = cartSubtotalAmount + cartTaxAmount
-        console.log(cartTotalAmount)
-        cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
+        cartSubtotalDollars += dishDollars
+        cartSubtotalCents += dishCents
+        cartSubtotalElem.innerText = costTranslator(cartSubtotalDollars, cartSubtotalCents)
+        cartTaxDollars += dishDollars * 0.0975
+        cartTaxCents += dishCents * 0.0975
+        console.log(cartTaxDollars, cartTaxCents)
+        cartTaxElem.innerText = costTranslator(cartTaxDollars, cartTaxCents)
+        cartTotalDollars = cartSubtotalDollars + cartTaxDollars
+        cartTotalCents = cartSubtotalCents + cartTaxCents
+        cartTotalElem.innerText = costTranslator(cartTotalDollars, cartTotalCents)
 
         // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
             quantityValue--
-            cartSubtotalAmount -= parseFloat(dishCost.substring(1))
-            cartTaxAmount -= parseFloat(dishCost.substring(1)) * 0.0975
-            cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+            cartSubtotalDollars -= dishDollars
+            cartSubtotalCents -= dishCents
+            cartTaxDollars -= dishDollars * 0.0975
+            cartTaxCents -= dishCents * 0.0975
+            cartTotalDollars = cartSubtotalDollars + cartTaxDollars
+            cartTotalCents = cartSubtotalCents + cartTaxCents
             //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
             quantity1.innerText = quantityValue
             quantity2.innerText = quantityValue
-            subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
-            cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
-            cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
-            cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
+            subtotal.innerText = costTranslator((dishDollarsTotal, dishDollarsCents))
+            cartSubtotalElem.innerText = costTranslator(cartSubtotalDollars, cartSubtotalCents)
+            cartTaxElem.innerText = costTranslator(cartTaxDollars, cartTaxCents)
+            cartTotalElem.innerText = costTranslator(cartTotalDollars, cartTotalCents)
         })
 
         // Increase quantity button
@@ -165,17 +189,19 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
             // let secondQuantityElem = event.target.parentNode.previousSibling
             // let subtotalElem = event.target.parentNode.parentNode.nextSibling
             quantityValue++
-            cartSubtotalAmount += parseFloat(dishCost.substring(1))
-            cartTaxAmount += parseFloat(dishCost.substring(1)) * 0.0975
-            cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+            cartSubtotalDollars += dishDollars
+            cartSubtotalCents += dishCents
+            cartTaxDollars += (dishDollars * 0.0975)
+            cartTaxCents += (dishCents * 0.0975)
+            cartTotalDollars += cartSubtotalDollars + cartTaxDollars
+            cartTotalCents += cartSubtotalCents + cartTaxCents
             //subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
             quantity1.innerText = quantityValue
             quantity2.innerText = quantityValue
-            subtotal.innerText = `$${parseFloat(dishCost.substring(1)) * quantityValue}`
-            cartSubtotalElem.innerText = `$${cartSubtotalAmount.toString().slice(0,5)}`
-            cartTaxElem.innerText = `$${cartTaxAmount.toString().slice(0,4)}`
-            cartTotalElem.innerText = `$${cartTotalAmount.toString().slice(0,5)}`
-            //cartTotalElem.innerText = `$${cartTotalAmount}`
+            subtotal.innerText = costTranslator(dishDollarsTotal, dishCentsTotal)
+            cartSubtotalElem.innerText = costTranslator(cartSubtotalDollars, cartSubtotalCents)
+            cartTaxElem.innerText = costTranslator(cartTaxDollars, cartTaxCents)
+            cartTotalElem.innerText = costTranslator(cartTotalDollars, cartTotalCents)
             
         })
 
