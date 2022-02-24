@@ -45,7 +45,7 @@ const menuItems = [
 
 
 //Menu Button
-let addToCartButton = document.querySelectorAll('button.add')
+let addToCartButtons = document.querySelectorAll('button.add')
 
 let checkMark = document.createElement('IMG')
 checkMark.setAttribute('src', 'images/check.svg')
@@ -59,12 +59,13 @@ let cartTaxAmount = parseFloat(cartTaxElem.innerText.substring(1))
 let cartTotalAmount = parseFloat(cartTotalElem.innerText.substring(1))
 
 //Menu Button Action
-let buttonFunction = addToCartButton.forEach((eachButton) => {
+let buttonFunction = addToCartButtons.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
         
         //Changes the Add to Cart Button
         eachButton.setAttribute('class', 'in-cart')
+        eachButton.setAttribute('disabled', true)
         eachButton.innerHTML = ` 
         <img src="images/check.svg" alt="Check" />
         In Cart`
@@ -163,17 +164,45 @@ let buttonFunction = addToCartButton.forEach((eachButton) => {
 
         // Decrease quantity button
         decreaseButton.addEventListener('click', (event) => {
+        
+            let cartItem = event.target.parentNode.parentNode.parentNode
+            let menuAddButton = addToCartButtons
+            
+            for(let i = 0; i < addToCartButtons.length; i++){
+                if(addToCartButtons[i].parentNode.childNodes[1].innerText === dishName){
+                    menuAddButton = addToCartButtons[i]
+                }
+            }
+            //.find((eachButton) => eachButton.previousSibling.previousSibling.innerText === dishName)
+            console.log(menuAddButton)
+            //If the quantity equals 0 then the the item (li containing all elements) should be removed 
+            //and the add to cart button needs to be enabled (through changing the class); otherwise it should be decreased
             quantityValue--
-            subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
-            cartSubtotalAmount -= dishCostAmount
-            cartTaxAmount -= (dishCostAmount * 0.0975)
-            cartTotalAmount = cartSubtotalAmount + cartTaxAmount
-            quantity1.innerText = quantityValue
-            quantity2.innerText = quantityValue
-            subtotal.innerText = priceTranslator(subtotalAmount)
-            cartSubtotalElem.innerText = priceTranslator(cartSubtotalAmount)
-            cartTaxElem.innerText = priceTranslator(cartTaxAmount)
-            cartTotalElem.innerText = priceTranslator(cartTotalAmount)
+            if(quantityValue <= 0){
+                cartSubtotalAmount -= dishCostAmount
+                cartTaxAmount -= (dishCostAmount * 0.0975)
+                cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+                quantity1.innerText = quantityValue
+                quantity2.innerText = quantityValue
+                cartSubtotalElem.innerText = priceTranslator(cartSubtotalAmount)
+                cartTaxElem.innerText = priceTranslator(cartTaxAmount)
+                cartTotalElem.innerText = priceTranslator(cartTotalAmount)
+                cartItem.remove()
+                menuAddButton.setAttribute('class', 'add')
+                menuAddButton.disabled = false
+                menuAddButton.innerHTML = 'Add to Cart'
+            }else{
+                subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
+                cartSubtotalAmount -= dishCostAmount
+                cartTaxAmount -= (dishCostAmount * 0.0975)
+                cartTotalAmount = cartSubtotalAmount + cartTaxAmount
+                quantity1.innerText = quantityValue
+                quantity2.innerText = quantityValue
+                subtotal.innerText = priceTranslator(subtotalAmount)
+                cartSubtotalElem.innerText = priceTranslator(cartSubtotalAmount)
+                cartTaxElem.innerText = priceTranslator(cartTaxAmount)
+                cartTotalElem.innerText = priceTranslator(cartTotalAmount)
+            }
         })
 
         // Increase quantity button
