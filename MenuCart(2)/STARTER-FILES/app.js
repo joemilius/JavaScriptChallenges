@@ -43,13 +43,30 @@ const menuItems = [
     }
 ]
 
+//Cart Items
+let cartContents = document.querySelector('.cart-summary')
+let numberOfCartItems = cartContents.childElementCount
+let emptyMessage = document.createElement('h3')
+emptyMessage.id = 'empty-cart'
+emptyMessage.innerText = 'Your Cart Is Empty'
+cartContents.append(emptyMessage)
+
+function emptyMessageToggle(cartItems){
+    if(cartItems === 0){
+        cartContents.append(emptyMessage)
+    }else{
+        emptyMessage.remove()
+    }
+}
 
 //Menu Button
 let addToCartButtons = document.querySelectorAll('button.add')
 
+//In Cart Menu button style change
 let checkMark = document.createElement('IMG')
 checkMark.setAttribute('src', 'images/check.svg')
 checkMark.setAttribute('alt', 'Check')
+
 
 let cartSubtotalElem = document.querySelector('.amount.price.subtotal')
 let cartTaxElem = document.querySelector('.amount.price.tax')
@@ -62,6 +79,10 @@ let cartTotalAmount = parseFloat(cartTotalElem.innerText.substring(1))
 let buttonFunction = addToCartButtons.forEach((eachButton) => {
     
     eachButton.addEventListener('click', (event) => {
+
+        //Removes Empty Cart Message
+        numberOfCartItems++
+        emptyMessageToggle(numberOfCartItems)
         
         //Changes the Add to Cart Button
         eachButton.setAttribute('class', 'in-cart')
@@ -83,6 +104,7 @@ let buttonFunction = addToCartButtons.forEach((eachButton) => {
             
             let dollarString = priceFloat.toString().split('.')[0]
             let centString = priceFloat.toString().split('.')[1]
+            console.log(centString)
             let dollarAmount = parseInt(dollarString)
             let centAmount = parseInt(centString.substring(0,2))
             
@@ -173,24 +195,32 @@ let buttonFunction = addToCartButtons.forEach((eachButton) => {
                     menuAddButton = addToCartButtons[i]
                 }
             }
-            //.find((eachButton) => eachButton.previousSibling.previousSibling.innerText === dishName)
-            console.log(menuAddButton)
+            
             //If the quantity equals 0 then the the item (li containing all elements) should be removed 
             //and the add to cart button needs to be enabled (through changing the class); otherwise it should be decreased
+            
             quantityValue--
             if(quantityValue <= 0){
+                numberOfCartItems--
                 cartSubtotalAmount -= dishCostAmount
                 cartTaxAmount -= (dishCostAmount * 0.0975)
                 cartTotalAmount = cartSubtotalAmount + cartTaxAmount
                 quantity1.innerText = quantityValue
                 quantity2.innerText = quantityValue
-                cartSubtotalElem.innerText = priceTranslator(cartSubtotalAmount)
-                cartTaxElem.innerText = priceTranslator(cartTaxAmount)
-                cartTotalElem.innerText = priceTranslator(cartTotalAmount)
+                if(numberOfCartItems === 0){
+                    cartSubtotalElem.innerText = '$0.00'
+                    cartTaxElem.innerText = '$0.00'
+                    cartTotalElem.innerText = '$0.00'
+                }else{
+                    cartSubtotalElem.innerText = priceTranslator(cartSubtotalAmount)
+                    cartTaxElem.innerText = priceTranslator(cartTaxAmount)
+                    cartTotalElem.innerText = priceTranslator(cartTotalAmount)
+                }
                 cartItem.remove()
                 menuAddButton.setAttribute('class', 'add')
                 menuAddButton.disabled = false
                 menuAddButton.innerHTML = 'Add to Cart'
+                emptyMessageToggle(numberOfCartItems)
             }else{
                 subtotalAmount = parseFloat(dishCost.substring(1)) * quantityValue
                 cartSubtotalAmount -= dishCostAmount
