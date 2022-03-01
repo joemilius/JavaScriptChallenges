@@ -148,3 +148,14 @@ const episodes = [
     'name': 'Building a Course'
   }
 ];
+
+let checkBoxes = document.querySelectorAll('input')
+
+checkBoxes.forEach(checkBox => {
+  checkBox.addEventListener('click', (event) => {
+    //console.log(event.target.checked)
+    if(event.shiftKey){
+      event.target.checked = true
+    }
+  }) 
+})
