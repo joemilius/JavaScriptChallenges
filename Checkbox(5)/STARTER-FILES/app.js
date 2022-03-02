@@ -150,12 +150,69 @@ const episodes = [
 ];
 
 let checkBoxes = document.querySelectorAll('input')
+let previousChecked = null
 
 checkBoxes.forEach(checkBox => {
   checkBox.addEventListener('click', (event) => {
-    //console.log(event.target.checked)
+    //lastChecked = event.target.id.split('-')[1]
+    console.log(event.shiftKey)
     if(event.shiftKey){
-      event.target.checked = true
+      
+      for(let i = 0; i < checkBoxes.length; i++){
+        
+        if(checkBoxes[i].checked && checkBoxes[i].id !== event.target.id){
+          
+          previousChecked = checkBoxes[i]
+          
+        }
+
+      }
+      
     }
+    console.log(previousChecked)
   }) 
 })
+
+
+//NOTE: event.shiftKey only seems to work on a double click if another check box is already checked
+//set variable for first checked box
+//loop through inputs to find last checked box before the event.taget box
+//then set variable to event.target number
+//slice the inputs inbetween using two variables
+//loop through sliced inputs and mark them all as checked (true)
+
+
+
+
+
+
+
+
+// let lastChecked = null;
+//   const checkboxes = Array.from( document.querySelectorAll( 'input' ) );
+
+//   checkboxes.forEach( checkbox => checkbox.addEventListener( 'click', event => {
+//     if ( !lastChecked ) {
+//       lastChecked = checkbox;
+
+//       return;
+//     }
+//     console.log(event.shiftKey)
+
+//     if ( event.shiftKey ) {
+//       const start = checkboxes.indexOf( checkbox );
+//       const end   = checkboxes.indexOf( lastChecked );
+//       console.log(start, end)
+//       checkboxes
+//         .slice( Math.min( start, end ), Math.max( start, end ) + 1 )
+//         .forEach( checkbox => checkbox.checked = lastChecked.checked );
+//     }
+
+//     lastChecked = checkbox;
+//   } ) );
+
+
+
+
+
+
