@@ -149,27 +149,38 @@ const episodes = [
   }
 ];
 
-let checkBoxes = document.querySelectorAll('input')
+let checkBoxes = Array.from(document.querySelectorAll('input'))
 let previousChecked = null
+let previousIndex = 0
+let lastIndex = checkBoxes.length
 
 checkBoxes.forEach(checkBox => {
   checkBox.addEventListener('click', (event) => {
     //lastChecked = event.target.id.split('-')[1]
-    console.log(event.shiftKey)
+    
     if(event.shiftKey){
       
       for(let i = 0; i < checkBoxes.length; i++){
         
-        if(checkBoxes[i].checked && checkBoxes[i].id !== event.target.id){
+        if(checkBoxes[i].id === event.target.id){
+          lastIndex = i
+        }else if(checkBoxes[i].checked && checkBoxes[i].id !== event.target.id && previousIndex < lastIndex){
           
           previousChecked = checkBoxes[i]
-          
+          previousIndex = i + 1
+        
         }
 
       }
+      let inbetween = checkBoxes.slice(previousIndex, lastIndex)
+      console.log(inbetween)
+      inbetween.forEach(input => input.checked = true)
       
     }
     console.log(previousChecked)
+    console.log(previousIndex)
+    console.log(lastIndex)
+    
   }) 
 })
 
