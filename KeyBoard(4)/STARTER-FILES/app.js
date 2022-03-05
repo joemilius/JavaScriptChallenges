@@ -1,15 +1,19 @@
 let allKeys = document.querySelectorAll('.key')
-let key1 = allKeys[1]
+//console.log(allKeys[41].attributes[1].value)
+
 document.addEventListener('keydown', (event) => {
-    console.log(event.key.toUpperCase())
+    //console.log(allKeys[41].attributes[1].value.toUpperCase(), event.key.toUpperCase())
     let newKey = allKeys[Math.floor(Math.random() * allKeys.length)]
+    //console.log(newKey)
     let currentToggle = ''
+    
     allKeys.forEach((eachKey) => {
-        if(event.key.toUpperCase() === eachKey.innerText.toUpperCase()){
+        console.log(eachKey.classList)
+        if(event.key.toUpperCase() === eachKey.attributes[1].value.toUpperCase()){
             currentToggle = eachKey
         }
     })
-    console.log(currentToggle.classList.value.split(' ').includes('jiggle'))
+    //console.log(currentToggle.classList.value.split(' '), event.key.toUpperCase())
     if(currentToggle.classList.value.split(' ').includes('jiggle')){
         currentToggle.classList.remove('jiggle')
         newKey.classList.add('jiggle')
