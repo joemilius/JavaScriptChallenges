@@ -1,22 +1,24 @@
 let allKeys = document.querySelectorAll('.key')
 //console.log(allKeys[41].attributes[1].value)
+//Left Shift button is not taking the jiggle off the class list (classlist is not recognizing it when it it added but it is added)
 
 document.addEventListener('keydown', (event) => {
-    //console.log(allKeys[41].attributes[1].value.toUpperCase(), event.key.toUpperCase())
+    
     let newKey = allKeys[Math.floor(Math.random() * allKeys.length)]
-    //console.log(newKey)
+    
     let currentToggle = ''
     
     allKeys.forEach((eachKey) => {
-        console.log(eachKey.classList)
         if(event.key.toUpperCase() === eachKey.attributes[1].value.toUpperCase()){
             currentToggle = eachKey
         }
     })
-    //console.log(currentToggle.classList.value.split(' '), event.key.toUpperCase())
+    
     if(currentToggle.classList.value.split(' ').includes('jiggle')){
         currentToggle.classList.remove('jiggle')
+        console.log(currentToggle, currentToggle.classList)
         newKey.classList.add('jiggle')
+        console.log(newKey, newKey.classList)
     }
 })
 
