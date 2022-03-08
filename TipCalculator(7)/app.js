@@ -18,6 +18,8 @@ calculateButton.addEventListener('click', () => {
     const totalBill = totalTip + originalBillAmount;
     const perPerson = Math.round(totalBill/numberOfPeople * 100) / 100;
 
+    console.log(tipPercentage, totalTip, totalBill, perPerson)
+
     totalPerPersonText.innerText = formatPrice(perPerson);
     tipAmountText.innerText = formatPrice(totalTip);
 })
@@ -25,6 +27,7 @@ calculateButton.addEventListener('click', () => {
 const formatPrice = (price) => {
     let retVal = price.toString();
     const parts = retVal.split('.');
+    console.log(parts[1])
     if(parts[0].length === 1) {
         retVal = "0" + retVal;
     }

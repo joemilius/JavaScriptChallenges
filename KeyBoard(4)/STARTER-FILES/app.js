@@ -13,8 +13,8 @@ document.addEventListener('keydown', (event) => {
             currentToggle = eachKey
         }
     })
-    
-    if(currentToggle.classList.value.split(' ').includes('jiggle')){
+    console.log(currentToggle.classList)
+    if(currentToggle.classList.split(' ').includes('jiggle')){
         currentToggle.classList.remove('jiggle')
         console.log(currentToggle, currentToggle.classList)
         newKey.classList.add('jiggle')
