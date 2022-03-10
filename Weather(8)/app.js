@@ -16,3 +16,7 @@ const iconNameToSizeMap = {
     'partly-cloudy': {width: 230, height:209},
     rainy: { width: 160, height: 222},
 }
+/*
+Find Weather Api
+Fetch the week's weather and update the html with values for the weather of each day of the week
+*/
