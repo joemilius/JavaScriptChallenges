@@ -44,3 +44,16 @@ const content = [
     'caption': 'Photo by Sonya Romanovska on Unsplash'
   },
 ]
+
+let imageList = Array.from(document.querySelectorAll('div.thumbnails li img'))
+console.log(imageList)
+imageList.forEach(image => {
+  image.addEventListener('click', event => {
+    console.log(event.target.parentNode.parentNode)
+    let featuredImage = document.querySelector('div.feature img')
+    let clickedDiv = event.target.parentNode.parentNode
+    let clickedImage = event.target.src 
+    console.log(clickedImage)
+    
+  })
+})
