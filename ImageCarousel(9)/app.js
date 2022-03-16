@@ -46,14 +46,48 @@ const content = [
 ]
 
 let imageList = Array.from(document.querySelectorAll('div.thumbnails li img'))
-console.log(imageList)
+let featuredImage = document.querySelector('div.feature img')
+let leftScroll = document.querySelector('a.left')
+let rightScroll = document.querySelector('a.right')
+
 imageList.forEach(image => {
   image.addEventListener('click', event => {
-    console.log(event.target.parentNode.parentNode)
-    let featuredImage = document.querySelector('div.feature img')
+    
+    
+    let selectedThumbnail = document.querySelector('.selected')
     let clickedDiv = event.target.parentNode.parentNode
     let clickedImage = event.target.src 
-    console.log(clickedImage)
+
+    selectedThumbnail.className = ''
+    clickedDiv.className = 'selected'
+    featuredImage.src = clickedImage
     
   })
+})
+
+leftScroll.addEventListener('click', event => {
+  
+  let nextImage = ''
+  for(let i = 0; i < imageList.length; i++){
+    if(featuredImage.src === imageList[i].src){
+      nextImage = imageList[i - 1]
+    }
+  }
+  console.log(nextImage)
+})
+
+rightScroll.addEventListener('click', event => {
+  
+  let nextImage = ''
+  
+  for(let i = 0; i < imageList.length; i++){
+    console.log(featuredImage.attributes[0].value, imageList[i].attributes[0].value.slice(2))
+    if(featuredImage.attributes[0].value === imageList[i].attributes[0].value.slice(2)){
+      nextImage = imageList[i + 1]
+      nextImage.src = imageList[i + 1].attributes[0].value.slice(2)
+      
+    }
+  }
+  console.log(featuredImage.src, nextImage.attributes)
+  //featuredImage.src = nextImage.attributes[0].value
 })
