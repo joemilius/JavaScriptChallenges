@@ -47,51 +47,75 @@ const content = [
 
 let imageList = Array.from(document.querySelectorAll('div.thumbnails li img'))
 let featuredImage = document.querySelector('div.feature img')
+let featuredImageSrc = featuredImage.attributes[0].value
 let leftScroll = document.querySelector('a.left')
 let rightScroll = document.querySelector('a.right')
 
 imageList.forEach(image => {
   image.addEventListener('click', event => {
     
-    
     let selectedThumbnail = document.querySelector('.selected')
     let clickedLi = event.target.parentNode.parentNode
-    let clickedImage = event.target.src 
+    let clickedImage = event.target.attributes[0].value
+    console.log(clickedImage)
 
     selectedThumbnail.className = ''
     clickedLi.className = 'selected'
-    featuredImage.src = clickedImage
-    
+    featuredImageSrc = clickedImage
+    featuredImage.attributes[0].value = clickedImage
   })
 })
 
 leftScroll.addEventListener('click', event => {
   
-  let nextImage = ''
-  for(let i = 0; i < imageList.length; i++){
-    if(featuredImage.src === imageList[i].src){
-      nextImage = imageList[i - 1]
-    }
+  if(featuredImageSrc.charAt(0) === 'i'){
+    featuredImageSrc = `./${featuredImageSrc}`
   }
-  console.log(nextImage)
-})
-
-rightScroll.addEventListener('click', event => {
   
   let nextImageSrc = ''
   
   for(let i = 0; i < imageList.length; i++){
 
-  
-    if(featuredImage.attributes[0].value === imageList[i].attributes[0].value.slice(2)){
-      if(!imageList[i + 1]){
-        nextImageSrc = imageList[0].attributes[0].value.slice(2)
+    if(featuredImageSrc === imageList[i].attributes[0].value){
+      if(!imageList[i - 1]){
+        imageList[i].parentNode.parentNode.className = ''
+        imageList[imageList.length - 1].parentNode.parentNode.className = 'selected'
+        nextImageSrc = imageList[imageList.length - 1].attributes[0].value
       }else{
-      nextImageSrc = imageList[i + 1].attributes[0].value.slice(2)
-      console.log(imageList[i].parentNode, imageList[i + 1].parentNode)
+        imageList[i].parentNode.parentNode.className = ''
+        imageList[i - 1].parentNode.parentNode.className = 'selected'
+        nextImageSrc = imageList[i - 1].attributes[0].value
+        console.log(imageList[i].parentNode.parentNode, imageList[i - 1].parentNode.parentNode)
       }
     }
   }
+  featuredImageSrc = nextImageSrc
+  featuredImage.attributes[0].value = nextImageSrc
+})
+
+rightScroll.addEventListener('click', event => {
   
+  if(featuredImageSrc.charAt(0) === 'i'){
+    featuredImageSrc = `./${featuredImageSrc}`
+  }
+
+  let nextImageSrc = ''
+  
+  for(let i = 0; i < imageList.length; i++){
+
+    if(featuredImageSrc === imageList[i].attributes[0].value){
+      if(!imageList[i + 1]){
+        imageList[i].parentNode.parentNode.className = ''
+        imageList[0].parentNode.parentNode.className = 'selected'
+        nextImageSrc = imageList[0].attributes[0].value
+      }else{
+        imageList[i].parentNode.parentNode.className = ''
+        imageList[i + 1].parentNode.parentNode.className = 'selected'
+        nextImageSrc = imageList[i + 1].attributes[0].value
+        console.log(imageList[i].parentNode.parentNode, imageList[i + 1].parentNode.parentNode)
+      }
+    }
+  }
+  featuredImageSrc = nextImageSrc
   featuredImage.attributes[0].value = nextImageSrc
 })
