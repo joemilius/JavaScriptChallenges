@@ -14,8 +14,11 @@ for(let i = 0; i < allInputs.length; i++){
         }
     })
     allInputs[i].addEventListener('paste', event => {
-        console.log(event.clipboardData)
+        console.log(event.clipboardData.getData('Text').split(''))
+        let data = event.clipboardData.getData('Text').split('')
+        for(let j = 0; j < allInputs.length; j++){
+            allInputs[j].value = data[j]
+        }
     })
 }
 
-//console.log(input1, input2, input3, input4)
