@@ -103,3 +103,13 @@ body.winner img {
   background: black;
   color: white;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body h2{
+  position: relative;
+  text-align: center;
+}
