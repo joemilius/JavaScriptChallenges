@@ -1,15 +1,13 @@
 let overlay = document.querySelector('div.overlay')
-let modal = document.querySelector('div.modal')
 let closeButton = document.querySelector('button.close')
-console.log(closeButton)
+let productDot = document.querySelector('circle.dot')
 
-// modal.addEventListener('click', event => {
-//     console.log(event)
-    
-// })
+productDot.addEventListener('click', event => {
+    overlay.removeAttribute('style')
+    console.log(overlay.attributes)   
+})
 
 closeButton.addEventListener('click', event => {
-    console.log(event.target)
     overlay.style.visibility = 'hidden'
-    console.log(overlay)
+    console.log(overlay.attributes)
 })
