@@ -8,11 +8,35 @@ previousMonthButton.addEventListener('click', event => {
     console.log(monthDiv.innerText)
     for(let i = 0; i < monthArray.length; i++){
         if(monthDiv.innerText === monthArray[i].month){
-            monthDiv.innerText = monthArray[i - 1].month
+            if(!monthArray[i - 1]){
+                monthDiv.innerText = monthArray[monthArray.length - 1].month
+            }else{
+                monthDiv.innerText = monthArray[i - 1].month
+            }
+            
         }
     }
 })
 
 nextMonthButton.addEventListener('click', event => {
-    console.log(event.target)
+
+    for(let i = monthArray.length - 1; i > 0; i--){
+        if(monthDiv.innerText === monthArray[i].month){
+            console.log(monthArray[i + 1])
+            if(!monthArray[i + 1]){
+                monthDiv.innerText = monthArray[0].month
+            }else{
+                monthDiv.innerText = monthArray[i + 1].month
+            }
+            
+        }
+    }
+    
+    // monthArray.reverse().forEach((monthObj, index) => {
+    //     console.log(monthDiv.innerText, monthObj.month)
+    //     if(monthDiv.innerText === monthObj.month){
+    //         console.log(monthDiv.innerText, monthArray[index - 1].month)
+    //         monthDiv.innerText = (monthArray[index - 1].month)
+    //     }
+    // })
 })
