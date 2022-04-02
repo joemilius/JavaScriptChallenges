@@ -7,10 +7,14 @@ let monthArray = [{month: 'JANUARY', days: 31}, {month: 'FEBRUARY', days: 28}, {
 previousMonthButton.addEventListener('click', event => {
     console.log(monthDiv.innerText)
     for(let i = 0; i < monthArray.length; i++){
+        console.log(monthArray[i])
         if(monthDiv.innerText === monthArray[i].month){
             if(!monthArray[i - 1]){
+                console.log(monthArray[monthArray.length - 1].month)
                 monthDiv.innerText = monthArray[monthArray.length - 1].month
+                return monthArray[monthArray.length - 1].month
             }else{
+                console.log(monthArray[i - 1].month)
                 monthDiv.innerText = monthArray[i - 1].month
             }
             
@@ -20,15 +24,15 @@ previousMonthButton.addEventListener('click', event => {
 
 nextMonthButton.addEventListener('click', event => {
 
-    for(let i = monthArray.length - 1; i > 0; i--){
+    for(let i = monthArray.length - 1; i >= 0; i--){
+        
         if(monthDiv.innerText === monthArray[i].month){
-            console.log(monthArray[i + 1])
             if(!monthArray[i + 1]){
                 monthDiv.innerText = monthArray[0].month
+                return monthArray[0].month
             }else{
                 monthDiv.innerText = monthArray[i + 1].month
-            }
-            
+            } 
         }
     }
     
