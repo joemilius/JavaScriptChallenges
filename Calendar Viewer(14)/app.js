@@ -1,32 +1,40 @@
+let wrapperDiv = document.querySelector('div.wrapper')
 let previousMonthButton = document.querySelector('div.previous')
 let nextMonthButton = document.querySelector('div.next')
 let monthDiv = document.querySelector('div.month')
-let daysDivs = Array.from(document.querySelectorAll('div')).slice(11, 46)
+// let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
+// console.log(daysDivs)
+//.slice(11, 46)
 let monthArray = [{month: 'JANUARY', days: 31}, {month: 'FEBRUARY', days: 28}, {month: 'MARCH', days: 31}, {month: 'APRIL', days: 30}, {month: 'MAY', days: 31}, {month: 'JUNE', days: 30}, {month: 'JULY', days: 31}, {month: 'AUGUST', days: 31}, {month: 'SEPTEMBER', days: 30}, {month: 'OCTOBER', days: 31}, {month: 'NOVEMBER', days: 30}, {month: 'DECEMBER', days: 31}]
 
 
 function replaceNextMonthDays(numberOfDays) {
     console.log(numberOfDays)
-    let emptyDays = 0
+    let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
+    let emptyDays = 7
     let daysFilled = 1
     for(let i = daysDivs.length - 1; i >= 0; i--){
         if(daysDivs[i].innerText !== ""){
-            return i 
+            i = -1 
         }else{
-            emptyDays++
+            emptyDays--
         }
     }
     for(let i = 0; i < daysDivs.length - 1; i++){
-        console.log(emptyDays, daysFilled)
+        console.log(numberOfDays, daysFilled)
         if(emptyDays > 0){
             daysDivs[i].innerText = ""
             emptyDays--
         }else if(numberOfDays >= daysFilled){
-            daysDivs[i].innerText = daysFilled
+            daysDivs[i].remove()
+            let newDay = document.createElement('div')
+            newDay.innerText = daysFilled
+            wrapperDiv.appendChild(newDay)
             daysFilled++
-        }else{
-            daysDivs[i].innerText = ""
         }
+        // else{
+        //     daysDivs[i].innerText = ""
+        // }
     }
 }
 
