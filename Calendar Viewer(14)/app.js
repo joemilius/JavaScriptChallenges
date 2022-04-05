@@ -11,8 +11,10 @@ let monthArray = [{month: 'JANUARY', days: 31}, {month: 'FEBRUARY', days: 28}, {
 function replaceNextMonthDays(numberOfDays) {
     console.log(numberOfDays)
     let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
+    console.log(daysDivs)
     let emptyDays = 7
     let daysFilled = 1
+
     for(let i = daysDivs.length - 1; i >= 0; i--){
         if(daysDivs[i].innerText !== ""){
             i = -1 
@@ -20,21 +22,35 @@ function replaceNextMonthDays(numberOfDays) {
             emptyDays--
         }
     }
-    for(let i = 0; i < daysDivs.length - 1; i++){
+    for(let i = 0; i < 42; i++){
         console.log(numberOfDays, daysFilled)
         if(emptyDays > 0){
-            daysDivs[i].innerText = ""
+            daysDivs[i].remove()
+            let newDay = document.createElement('div')
+            newDay.innerText = ""
+            wrapperDiv.appendChild(newDay)
             emptyDays--
-        }else if(numberOfDays >= daysFilled){
+        }else if(numberOfDays >= daysFilled && daysDivs[i]){
             daysDivs[i].remove()
             let newDay = document.createElement('div')
             newDay.innerText = daysFilled
             wrapperDiv.appendChild(newDay)
             daysFilled++
+        }else if(numberOfDays >= daysFilled && !daysDivs[i]){
+            let newDay = document.createElement('div')
+            newDay.innerText = daysFilled
+            wrapperDiv.appendChild(newDay)
+            daysFilled++
+        }else if(daysDivs[i] ){
+            daysDivs[i].remove()
+            let newDay = document.createElement('div')
+            newDay.innerText = ""
+            wrapperDiv.appendChild(newDay)
+        }else {
+            let newDay = document.createElement('div')
+            newDay.innerText = ""
+            wrapperDiv.appendChild(newDay)
         }
-        // else{
-        //     daysDivs[i].innerText = ""
-        // }
     }
 }
 
