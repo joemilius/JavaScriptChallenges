@@ -14,38 +14,40 @@ function replaceNextMonthDays(numberOfDays) {
     console.log(daysDivs)
     let emptyDays = 7
     let daysFilled = 1
+    
 
     for(let i = daysDivs.length - 1; i >= 0; i--){
-        if(daysDivs[i].innerText !== ""){
+        console.log(daysDivs[i].innerText)
+        if(daysDivs[i].innerText !== "" && emptyDays === 7){
             i = -1 
-        }else{
+            emptyDays = 0
+        }else if(daysDivs[i].innerText !== ""){
+            i = -1
+        }
+        else{
             emptyDays--
         }
     }
-    for(let i = 0; i < 42; i++){
-        console.log(numberOfDays, daysFilled)
-        if(emptyDays > 0){
+
+    let numberOfSpaces = numberOfDays + emptyDays <= 35 ? 35 : 42
+    console.log(numberOfSpaces)
+
+    for(let i = 0; i < daysDivs.length; i++){
             daysDivs[i].remove()
+    }
+
+    for(let i = 0; i < numberOfSpaces; i++){
+        
+        if(emptyDays > 0){
             let newDay = document.createElement('div')
             newDay.innerText = ""
             wrapperDiv.appendChild(newDay)
             emptyDays--
-        }else if(numberOfDays >= daysFilled && daysDivs[i]){
-            daysDivs[i].remove()
+        }else if(numberOfDays >= daysFilled){
             let newDay = document.createElement('div')
             newDay.innerText = daysFilled
             wrapperDiv.appendChild(newDay)
             daysFilled++
-        }else if(numberOfDays >= daysFilled && !daysDivs[i]){
-            let newDay = document.createElement('div')
-            newDay.innerText = daysFilled
-            wrapperDiv.appendChild(newDay)
-            daysFilled++
-        }else if(daysDivs[i] ){
-            daysDivs[i].remove()
-            let newDay = document.createElement('div')
-            newDay.innerText = ""
-            wrapperDiv.appendChild(newDay)
         }else {
             let newDay = document.createElement('div')
             newDay.innerText = ""
