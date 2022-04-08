@@ -56,6 +56,54 @@ function replaceNextMonthDays(numberOfDays) {
     }
 }
 
+function replacePreviousMonthDays(numberOfDays) {
+    console.log(numberOfDays)
+    let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
+    console.log(daysDivs)
+    let emptyDays = 7
+    let daysFilled = 1
+    
+
+    for(let i = 0; i <= daysDivs.length - 1; i++){
+        console.log(daysDivs[i].innerText)
+        if(daysDivs[i].innerText !== "" && emptyDays === 7){
+            i = daysDivs.length
+            emptyDays = 0
+        }else if(daysDivs[i].innerText !== ""){
+            i = daysDivs.length
+        }
+        else{
+            emptyDays--
+        }
+    }
+
+    let numberOfSpaces = numberOfDays + emptyDays <= 35 ? 35 : 42
+    console.log(numberOfSpaces)
+
+    for(let i = 0; i < daysDivs.length; i++){
+            daysDivs[i].remove()
+    }
+
+    for(let i = 0; i < numberOfSpaces; i++){
+        
+        if(emptyDays > 0){
+            let newDay = document.createElement('div')
+            newDay.innerText = ""
+            wrapperDiv.appendChild(newDay)
+            emptyDays--
+        }else if(numberOfDays >= daysFilled){
+            let newDay = document.createElement('div')
+            newDay.innerText = daysFilled
+            wrapperDiv.appendChild(newDay)
+            daysFilled++
+        }else {
+            let newDay = document.createElement('div')
+            newDay.innerText = ""
+            wrapperDiv.appendChild(newDay)
+        }
+    }
+}
+
 previousMonthButton.addEventListener('click', event => {
     console.log(monthDiv.innerText)
     for(let i = 0; i < monthArray.length; i++){
