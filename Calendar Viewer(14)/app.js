@@ -1,4 +1,5 @@
 let wrapperDiv = document.querySelector('div.wrapper')
+let lastDayOfWeek = document.querySelectorAll('.day-of-week')[6]
 let previousMonthButton = document.querySelector('div.previous')
 let nextMonthButton = document.querySelector('div.next')
 let monthDiv = document.querySelector('div.month')
@@ -7,6 +8,8 @@ let monthDiv = document.querySelector('div.month')
 //.slice(11, 46)
 let monthArray = [{month: 'JANUARY', days: 31}, {month: 'FEBRUARY', days: 28}, {month: 'MARCH', days: 31}, {month: 'APRIL', days: 30}, {month: 'MAY', days: 31}, {month: 'JUNE', days: 30}, {month: 'JULY', days: 31}, {month: 'AUGUST', days: 31}, {month: 'SEPTEMBER', days: 30}, {month: 'OCTOBER', days: 31}, {month: 'NOVEMBER', days: 30}, {month: 'DECEMBER', days: 31}]
 
+
+console.log(lastDayOfWeek)
 
 function replaceNextMonthDays(numberOfDays) {
     console.log(numberOfDays)
@@ -61,7 +64,7 @@ function replacePreviousMonthDays(numberOfDays) {
     let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
     console.log(daysDivs)
     let emptyDays = 7
-    let daysFilled = 1
+    let daysFilled = numberOfDays
     
 
     for(let i = 0; i <= daysDivs.length - 1; i++){
@@ -89,17 +92,17 @@ function replacePreviousMonthDays(numberOfDays) {
         if(emptyDays > 0){
             let newDay = document.createElement('div')
             newDay.innerText = ""
-            wrapperDiv.appendChild(newDay)
+            lastDayOfWeek.insertAdjacentElement('afterend', newDay)
             emptyDays--
-        }else if(numberOfDays >= daysFilled){
+        }else if(0 < daysFilled){
             let newDay = document.createElement('div')
             newDay.innerText = daysFilled
-            wrapperDiv.appendChild(newDay)
-            daysFilled++
+            lastDayOfWeek.insertAdjacentElement('afterend', newDay)
+            daysFilled--
         }else {
             let newDay = document.createElement('div')
             newDay.innerText = ""
-            wrapperDiv.appendChild(newDay)
+            lastDayOfWeek.insertAdjacentElement('afterend', newDay)
         }
     }
 }
@@ -112,10 +115,12 @@ previousMonthButton.addEventListener('click', event => {
             if(!monthArray[i - 1]){
                 
                 monthDiv.innerText = monthArray[monthArray.length - 1].month
-                return monthArray[monthArray.length - 1].month
+                replacePreviousMonthDays(monthArray[monthArray.length - 1].days)
+                i = monthArray.length
             }else{
                 
                 monthDiv.innerText = monthArray[i - 1].month
+                replacePreviousMonthDays(monthArray[i - 1].days)
             }
             
         }
@@ -130,7 +135,7 @@ nextMonthButton.addEventListener('click', event => {
             if(!monthArray[i + 1]){
                 monthDiv.innerText = monthArray[0].month
                 replaceNextMonthDays(monthArray[0].days)
-                return monthArray[0].month
+                i = -1 
             }else{
                 monthDiv.innerText = monthArray[i + 1].month
                 replaceNextMonthDays(monthArray[i + 1].days)
