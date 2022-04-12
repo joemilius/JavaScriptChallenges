@@ -9,18 +9,14 @@ let monthDiv = document.querySelector('div.month')
 let monthArray = [{month: 'JANUARY', days: 31}, {month: 'FEBRUARY', days: 28}, {month: 'MARCH', days: 31}, {month: 'APRIL', days: 30}, {month: 'MAY', days: 31}, {month: 'JUNE', days: 30}, {month: 'JULY', days: 31}, {month: 'AUGUST', days: 31}, {month: 'SEPTEMBER', days: 30}, {month: 'OCTOBER', days: 31}, {month: 'NOVEMBER', days: 30}, {month: 'DECEMBER', days: 31}]
 
 
-console.log(lastDayOfWeek)
-
 function replaceNextMonthDays(numberOfDays) {
-    console.log(numberOfDays)
+    
     let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
-    console.log(daysDivs)
     let emptyDays = 7
     let daysFilled = 1
     
-
     for(let i = daysDivs.length - 1; i >= 0; i--){
-        console.log(daysDivs[i].innerText)
+        
         if(daysDivs[i].innerText !== "" && emptyDays === 7){
             i = -1 
             emptyDays = 0
@@ -33,7 +29,6 @@ function replaceNextMonthDays(numberOfDays) {
     }
 
     let numberOfSpaces = numberOfDays + emptyDays <= 35 ? 35 : 42
-    console.log(numberOfSpaces)
 
     for(let i = 0; i < daysDivs.length; i++){
             daysDivs[i].remove()
@@ -60,15 +55,13 @@ function replaceNextMonthDays(numberOfDays) {
 }
 
 function replacePreviousMonthDays(numberOfDays) {
-    console.log(numberOfDays)
+    
     let daysDivs = Array.from(document.querySelectorAll('div')).slice(11)
-    console.log(daysDivs)
     let emptyDays = 7
     let daysFilled = numberOfDays
     
-
     for(let i = 0; i <= daysDivs.length - 1; i++){
-        console.log(daysDivs[i].innerText)
+        
         if(daysDivs[i].innerText !== "" && emptyDays === 7){
             i = daysDivs.length
             emptyDays = 0
@@ -81,7 +74,6 @@ function replacePreviousMonthDays(numberOfDays) {
     }
 
     let numberOfSpaces = numberOfDays + emptyDays <= 35 ? 35 : 42
-    console.log(numberOfSpaces)
 
     for(let i = 0; i < daysDivs.length; i++){
             daysDivs[i].remove()
@@ -108,7 +100,7 @@ function replacePreviousMonthDays(numberOfDays) {
 }
 
 previousMonthButton.addEventListener('click', event => {
-    console.log(monthDiv.innerText)
+    
     for(let i = 0; i < monthArray.length; i++){
         
         if(monthDiv.innerText === monthArray[i].month){
@@ -142,12 +134,4 @@ nextMonthButton.addEventListener('click', event => {
             } 
         }
     }
-    
-    // monthArray.reverse().forEach((monthObj, index) => {
-    //     console.log(monthDiv.innerText, monthObj.month)
-    //     if(monthDiv.innerText === monthObj.month){
-    //         console.log(monthDiv.innerText, monthArray[index - 1].month)
-    //         monthDiv.innerText = (monthArray[index - 1].month)
-    //     }
-    // })
 })
