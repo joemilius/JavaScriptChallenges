@@ -4,6 +4,7 @@ let gallery = document.querySelector('ul.gallery')
 gallery.innerHTML = ''
 
 sampleAPIResponse.items.slice(0, 10).forEach(item => {
+    console.log(item.snippet.thumbnails.default.url.split('/')[4])
     let li = document.createElement('li')
     let a = document.createElement('a')
     let img = document.createElement('img')
@@ -16,5 +17,12 @@ sampleAPIResponse.items.slice(0, 10).forEach(item => {
     a.append(img)
     a.append(h3)
     
-
+    a.addEventListener('click',(event) => {
+        let iframe = document.querySelector('div.embed iframe')
+        let featureh1 = document.querySelector('div.feature h1')
+        let featurep = document.querySelector('div.feature p')
+        iframe.src = `https://www.youtube.com/embed/${item.snippet.thumbnails.default.url.split('/')[4]}`
+        featureh1.innerText = item.snippet.title
+        featurep.innerText = item.snippet.description
+    })
 })
