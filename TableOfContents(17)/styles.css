@@ -73,13 +73,15 @@ caption {
 
 
 aside {
-  grid-column: 2 / span 2;
+  grid-column: 2 / span 2; 
 }
 
 aside > div {
   position: sticky;
   padding-top: 150px;
   top: 0px;
+  height: 500px;
+  overflow: auto;
 }
 
 aside .table-of-contents {
