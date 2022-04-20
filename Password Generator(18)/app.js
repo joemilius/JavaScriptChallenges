@@ -8,7 +8,7 @@ let similarCheck = document.querySelector('#similar')
 
 
 let keyArray = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnpoqrstuvwxyz', '0123456789', '!?@#$%^&*<>-+=~']
-let generatorArray = []
+let generatorArray = [...keyArray]
 
 let passwordLength = lengthField.value
 
@@ -20,8 +20,7 @@ passwordInput.value = generator()
 function generator(){
     let password = ''
     for(let i = 0; i < passwordLength; i++){
-        let chosenString = keyArray[Math.floor(Math.random() * generatorArray.length)]
-        console.log(chosenString)
+        let chosenString = generatorArray[Math.floor(Math.random() * generatorArray.length)]
         password += chosenString.charAt(Math.floor(Math.random() * chosenString.length))
     }
     console.log(password)
@@ -33,5 +32,16 @@ lengthField.addEventListener('input',event => {
     let lengthText = document.querySelector('#lengthText')
     lengthText.innerText = event.target.value
     passwordInput.value = generator()
+})
+
+symbolCheck.addEventListener('change', event => {
+    console.log(event.target.checked)
+    if(!event.target.checked){
+        generatorArray = generatorArray.filter(string => string !== keyArray[3])
+        passwordInput.value = generator()
+    }else if(!generatorArray.includes(keyArray[3])){
+        generatorArray.push(keyArray[3])
+        passwordInput.value = generator()
+    }
 })
 //let lowercaseAndNumbers = Math.random().toString(36).slice(2, 7)
