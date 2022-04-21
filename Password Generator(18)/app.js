@@ -44,4 +44,38 @@ symbolCheck.addEventListener('change', event => {
         passwordInput.value = generator()
     }
 })
+
+numbersCheck.addEventListener('change', event => {
+    if(!event.target.checked){
+        generatorArray = generatorArray.filter(string => string !== keyArray[2])
+        passwordInput.value = generator()
+    }else if(!generatorArray.includes(keyArray[2])){
+        generatorArray.push(keyArray[2])
+        passwordInput.value = generator()
+    }
+})
+
+lowercaseCheck.addEventListener('change', event => {
+    if(!event.target.checked){
+        generatorArray = generatorArray.filter(string => string !== keyArray[1])
+        passwordInput.value = generator()
+    }else if(!generatorArray.includes(keyArray[1])){
+        generatorArray.push(keyArray[1])
+        passwordInput.value = generator()
+    }
+})
+
+uppercaseCheck.addEventListener('change', event => {
+    if(!event.target.checked){
+        generatorArray = generatorArray.filter(string => string !== keyArray[0])
+        passwordInput.value = generator()
+    }else if(!generatorArray.includes(keyArray[0])){
+        generatorArray.push(keyArray[0])
+        passwordInput.value = generator()
+    }
+})
+
+similarCheck.addEventListener('change', event => {
+    console.log(event.target.checked)
+})
 //let lowercaseAndNumbers = Math.random().toString(36).slice(2, 7)
