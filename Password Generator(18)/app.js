@@ -7,12 +7,13 @@ let uppercaseCheck = document.querySelector('#uppercase')
 let similarCheck = document.querySelector('#similar')
 
 
-let keyArray = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnpoqrstuvwxyz', '0123456789', '!?@#$%^&*<>-+=~']
+let keyArray = ['ILOABCDEFGHJKMNPQRSTUVWXYZ', 'iloabcdefghjkmnpqrstuvwxyz', '0123456789', '!?@#$%^&*<>-+=~']
+let nonSimilarArray = ['ABCDEFGHJKMNPQRSTUVWXYZ', 'abcdefghjkmnpqrstuvwxyz', '23456789', '?@#$%^&*<>-+=~']
 let generatorArray = [...keyArray]
+console.log(generatorArray)
+console.log(keyArray[0].includes('I' || 'i' || 'L' || 'l' || '1' || 'o' || 'O' || '0' || '!'))
 
 let passwordLength = lengthField.value
-
-console.log(lengthField.value)
 
 passwordInput.value = generator()
 
@@ -77,5 +78,37 @@ uppercaseCheck.addEventListener('change', event => {
 
 similarCheck.addEventListener('change', event => {
     console.log(event.target.checked)
+    if(!event.target.checked){
+        console.log(generatorArray)
+        for(let i = 0; i < generatorArray.length; i++){
+            if(generatorArray[i][0] === 'I'){
+                generatorArray[i] = generatorArray[i].slice(3)
+            }else if(generatorArray[i][0] === 'i'){
+                generatorArray[i] = generatorArray[i].slice(3)
+            }else if(generatorArray[i][0] === '0'){
+                generatorArray[i] = generatorArray[i].slice(2)
+            }else if(generatorArray[i][0] === '!'){
+                generatorArray[i] = generatorArray[i].slice(1)
+            }
+        }
+        passwordInput.value = generator()
+    }else{
+        for(let i = 0; i < generatorArray.length; i++){
+            if(generatorArray[i][generatorArray[i].length -  1] === 'Z'){
+                generatorArray[i] = 'ILO' + generatorArray[i]
+                console.log(generatorArray[i])
+            }else if (generatorArray[i][generatorArray[i].length - 1] === 'z'){
+                generatorArray[i] = 'ilo' + generatorArray[i]
+                console.log(generatorArray[i])
+            }else if (generatorArray[i][generatorArray[i].length - 1] === '9'){
+                generatorArray[i] = '01' + generatorArray[i]
+                console.log(generatorArray[i])
+            }else if (generatorArray[i][generatorArray[i].length - 1] === '~'){
+                generatorArray[i] = '!' + generatorArray[i]
+                console.log(generatorArray[i])
+            }
+        }
+        passwordInput.value = generator()
+    }
 })
 //let lowercaseAndNumbers = Math.random().toString(36).slice(2, 7)
