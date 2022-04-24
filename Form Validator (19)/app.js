@@ -20,15 +20,23 @@ nameInput.addEventListener('input', event => {
 
 emailInput.addEventListener('input', event => {
     let value = event.target.value
-    console.log(value.includes('@gmail.com'))
-    console.log(value.includes('@yahoo.com'))
-    console.log(value.includes('@comcast.net'))
-    if(value.includes('@gmail.com') || value.includes('@yahoo.com') || value.includes('@comcast.net')){
+    console.log(value.slice(-4))
+    // console.log(value.includes('@yahoo.com'))
+    // console.log(value.includes('@comcast.net'))
+    if(value.includes('@') & value.slice(-4) === '.com' || value.includes('@') & value.slice(-4) === '.org'|| value.includes('@') & value.slice(-4) === '.net'){
         emailInput.parentElement.children[2].innerHTML = ''
         emailInput.parentElement.children[3].innerHTML = '<img src="./images/success.svg" alt="Success" />'
     }else{
         emailInput.parentElement.children[2].innerHTML = '<img src="./images/error.svg" alt="Error" /> A valid email is required'
         emailInput.parentElement.children[3].innerHTML = ''
     }
+})
+
+passwordInput.addEventListener('input', event => {
+
+})
+
+confirmPasswordInput.addEventListener('input', event => {
+
 })
 
