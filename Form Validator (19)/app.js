@@ -2,6 +2,7 @@ let nameInput = document.querySelector('#name')
 let emailInput = document.querySelector('#email')
 let passwordInput = document.querySelector('#password')
 let confirmPasswordInput = document.querySelector('#confirm-password')
+let passwordValue = ''
 
 console.log(nameInput.parentElement.children)
 emailInput.parentElement.children[2].innerHTML = '<img src="./images/error.svg" alt="Error" /> A valid email is required'
@@ -33,10 +34,23 @@ emailInput.addEventListener('input', event => {
 })
 
 passwordInput.addEventListener('input', event => {
-
+    if(event.target.value.length >= 8){
+        passwordValue = event.target.value
+        passwordInput.parentElement.children[2].innerHTML = ''
+        passwordInput.parentElement.children[3].innerHTML = '<img src="./images/success.svg" alt="Success" />'
+    }else{
+        passwordInput.parentElement.children[2].innerHTML = '<img src="./images/error.svg" alt="Error" />'
+        passwordInput.parentElement.children[3].innerHTML = ''
+    }
 })
 
 confirmPasswordInput.addEventListener('input', event => {
-
+    if(event.target.value === passwordValue){
+        confirmPasswordInput.parentElement.children[2].innerHTML = ''
+        confirmPasswordInput.parentElement.children[3].innerHTML = '<img src="./images/success.svg" alt="Success" />'
+    }else{
+        confirmPasswordInput.parentElement.children[2].innerHTML = '<img src="./images/error.svg" alt="Error" /> Password does not match'
+        confirmPasswordInput.parentElement.children[3].innerHTML = ''
+    }
 })
 
