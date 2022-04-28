@@ -73,13 +73,25 @@ episodes.forEach(episode => {
 
   title.addEventListener('click', event => {
     let allEpisodes = document.querySelectorAll('li')
+    let mainImage = document.querySelector('.cover img')
+    let mainTitle = document.querySelector('.content h1')
+    let mainContent = document.querySelector('.content p')
+    let mainLink = document.querySelector('.content a')
+    console.log(mainLink)
+    
     
     allEpisodes.forEach(eachEpisode => {
       if(eachEpisode.children[0].children[1].textContent === event.target.textContent){
         eachEpisode.className = 'selected'
+        mainImage.src = `./images/${episode.cover}`
+        mainTitle.textContent = episode.title
+        mainContent.textContent = episode.description
+        mainLink.href = episode.link
       }else{
         eachEpisode.className = ''
       }
+
+
     })
     
   })
