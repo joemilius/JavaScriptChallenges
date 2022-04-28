@@ -49,3 +49,38 @@ const episodes = [
     link: 'https://www.compressed.fm/episode/33'
   },
 ]
+
+let episodesContainer = document.querySelector('#tabs')
+episodesContainer.innerHTML = ''
+
+episodes.forEach(episode => {
+  let li = document.createElement('li')
+  let a = document.createElement('a')
+  let episodeNumber = document.createElement('div')
+  let title = document.createElement('div')
+
+  a.href = '#'
+  episodeNumber.className = 'episode'
+  title.className = 'title'
+
+  episodeNumber.textContent = `Episode ${episode.id}`
+  title.textContent = `${episode.title}`
+
+  episodesContainer.append(li)
+  li.append(a)
+  a.append(episodeNumber)
+  a.append(title)
+
+  title.addEventListener('click', event => {
+    let allEpisodes = document.querySelectorAll('li')
+    
+    allEpisodes.forEach(eachEpisode => {
+      if(eachEpisode.children[0].children[1].textContent === event.target.textContent){
+        eachEpisode.className = 'selected'
+      }else{
+        eachEpisode.className = ''
+      }
+    })
+    
+  })
+})
