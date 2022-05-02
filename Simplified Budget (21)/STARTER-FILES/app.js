@@ -4,6 +4,7 @@ let expenseAmountInput = document.querySelector('#expense-amount')
 let addExpenseButton = document.querySelector('#add-expense-button')
 let expenseTable = document.querySelector('.expense-table')
 let summaryAmounts = document.querySelectorAll('.summary-amount')
+let incomeTotal = 0
 let expenseName = ''
 let expenseAmount = 0
 let expenseTotal = 0
@@ -15,6 +16,7 @@ summaryAmounts.forEach(amount => {
 })
 
 incomeInput.addEventListener('blur', event => {
+    incomeTotal = parseFloat(event.target.value)
     let dollars = event.target.value.split('.')[0]
     let cents = event.target.value.split('.')[1]
     let commaDollars = ''
@@ -33,6 +35,7 @@ incomeInput.addEventListener('blur', event => {
     }
     console.log(commaDollars)
     summaryAmounts[0].textContent = `$${dollars.includes(',') || dollars.length < 4 ? dollars : commaDollars}.${cents !== undefined ? cents : '00'}`
+    incomeInput.value = ''
 })
 
 expenseNameInput.addEventListener('change', event => {
@@ -42,7 +45,7 @@ expenseNameInput.addEventListener('change', event => {
 expenseAmountInput.addEventListener('change', event => {
     expenseAmount = parseFloat(event.target.value)
     expenseTotal = expenseTotal + parseFloat(event.target.value)
-    summaryAmounts[1].textContent = `$${expenseTotal}`
+    
 })
 
 addExpenseButton.addEventListener('click', event => {
@@ -67,14 +70,19 @@ addExpenseButton.addEventListener('click', event => {
     deleteDiv.append(deleteButton)
     deleteButton.append(deleteImage)
 
-    deleteButton.addEventListener('click', event => {
-        // nameDiv.remove()
-        // amountDiv.remove()
-        // deleteDiv.remove()
-        console.log(parseFloat(amountDiv.textContent.slice(1)))
-        expenseTotal = expenseTotal - parseFloat(amountDiv.textContent.slice(1))
-        console.log(expenseTotal)
-        summaryAmounts[1].textContent = `$${expenseTotal}`
+    summaryAmounts[1].textContent = `$${expenseTotal}`
+    summaryAmounts[2].textContent = `$${incomeTotal - expenseTotal}`
 
+    deleteButton.addEventListener('click', event => {
+        nameDiv.remove()
+        amountDiv.remove()
+        deleteDiv.remove()
+        
+        expenseTotal = expenseTotal - parseFloat(amountDiv.textContent.slice(1))
+        summaryAmounts[1].textContent = `$${expenseTotal}`
+        summaryAmounts[2].textContent = `$${incomeTotal - expenseTotal}`
     })
+
+    expenseNameInput.value = ''
+    expenseAmountInput.value = ''
 })
