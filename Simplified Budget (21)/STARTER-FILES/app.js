@@ -16,7 +16,9 @@ summaryAmounts.forEach(amount => {
 })
 
 incomeInput.addEventListener('blur', event => {
-    incomeTotal = parseFloat(event.target.value)
+    let noCommaIncome = event.target.value.split('').filter(char => char !== ',').join('')
+    incomeTotal = incomeTotal + parseFloat(noCommaIncome)
+    console.log(incomeTotal.toString())
     let dollars = event.target.value.split('.')[0]
     let cents = event.target.value.split('.')[1]
     let commaDollars = ''
@@ -33,7 +35,6 @@ incomeInput.addEventListener('blur', event => {
             commaDollars = `,${dollars.slice(i, i + 3)}` + commaDollars
         }
     }
-    console.log(commaDollars)
     summaryAmounts[0].textContent = `$${dollars.includes(',') || dollars.length < 4 ? dollars : commaDollars}.${cents !== undefined ? cents : '00'}`
     incomeInput.value = ''
 })
