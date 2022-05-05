@@ -18,11 +18,16 @@ summaryAmounts.forEach(amount => {
 incomeInput.addEventListener('blur', event => {
     let noCommaIncome = event.target.value.split('').filter(char => char !== ',').join('')
     incomeTotal = incomeTotal + parseFloat(noCommaIncome)
-    console.log(incomeTotal)
     let incomeTotalString = incomeTotal.toString().split('').includes('.') ? incomeTotal.toString() : incomeTotal.toString() + '.00'
-    console.log(incomeTotalString)
     let dollars = incomeTotalString.split('.')[0]
     let cents = incomeTotalString.split('.')[1]
+    
+    if(cents.length === 1){
+        cents = cents + '0'
+    }else if(cents.length > 2){
+        cents = cents.slice(0,2)
+    }
+    
     let commaDollars = ''
     let firstDigits = 0
 
