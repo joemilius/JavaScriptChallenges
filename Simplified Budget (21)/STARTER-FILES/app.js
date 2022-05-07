@@ -15,10 +15,8 @@ summaryAmounts.forEach(amount => {
     amount.textContent = ''
 })
 
-incomeInput.addEventListener('blur', event => {
-    let noCommaIncome = event.target.value.split('').filter(char => char !== ',').join('')
-    incomeTotal = incomeTotal + parseFloat(noCommaIncome)
-    let incomeTotalString = incomeTotal.toString().split('').includes('.') ? incomeTotal.toString() : incomeTotal.toString() + '.00'
+function priceTranslator(totalValue){
+    let incomeTotalString = totalValue.toString().split('').includes('.') ? totalValue.toString() : totalValue.toString() + '.00'
     let dollars = incomeTotalString.split('.')[0]
     let cents = incomeTotalString.split('.')[1]
     
@@ -42,7 +40,14 @@ incomeInput.addEventListener('blur', event => {
             commaDollars = `,${dollars.slice(i, i + 3)}` + commaDollars
         }
     }
-    summaryAmounts[0].textContent = `$${dollars.includes(',') || dollars.length < 4 ? dollars : commaDollars}.${cents !== undefined ? cents : '00'}`
+    return `$${dollars.includes(',') || dollars.length < 4 ? dollars : commaDollars}.${cents !== undefined ? cents : '00'}`
+
+}
+
+incomeInput.addEventListener('blur', event => {
+    let noCommaIncome = event.target.value.split('').filter(char => char !== ',').join('')
+    incomeTotal = incomeTotal + parseFloat(noCommaIncome)
+    summaryAmounts[0].textContent = priceTranslator(incomeTotal)
     incomeInput.value = ''
 })
 
@@ -78,8 +83,9 @@ addExpenseButton.addEventListener('click', event => {
     deleteDiv.append(deleteButton)
     deleteButton.append(deleteImage)
 
-    summaryAmounts[1].textContent = `$${expenseTotal}`
-    summaryAmounts[2].textContent = `$${incomeTotal - expenseTotal}`
+
+    summaryAmounts[1].textContent = priceTranslator(expenseTotal)
+    summaryAmounts[2].textContent = priceTranslator(incomeTotal - expenseTotal)
 
     deleteButton.addEventListener('click', event => {
         nameDiv.remove()
@@ -87,8 +93,8 @@ addExpenseButton.addEventListener('click', event => {
         deleteDiv.remove()
         
         expenseTotal = expenseTotal - parseFloat(amountDiv.textContent.slice(1))
-        summaryAmounts[1].textContent = `$${expenseTotal}`
-        summaryAmounts[2].textContent = `$${incomeTotal - expenseTotal}`
+        summaryAmounts[1].textContent = priceTranslator(expenseTotal)
+        summaryAmounts[2].textContent = priceTranslator(incomeTotal - expenseTotal)
     })
 
     expenseNameInput.value = ''
