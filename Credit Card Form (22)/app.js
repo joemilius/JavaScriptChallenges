@@ -4,6 +4,9 @@ let cvvInput = document.querySelector('[name="cvv"]')
 let expirationMonthSelect = document.querySelector('[name="expiration-date-month"]')
 let expirationYearSelect = document.querySelector('[name="expiration-date-year"]')
 let creditCardWrapper = document.querySelector('.credit-card__wrapper')
+let cardNumberDivs = document.querySelector('.card-number').children
+console.log(cardNumberDivs)
+
 
 cardNumberInput.addEventListener('blur', event => {
     console.log(event.target.value)
@@ -21,6 +24,16 @@ cardNumberInput.addEventListener('blur', event => {
         creditCardWrapper.classList.remove(creditCardWrapper.classList.value.split(' ')[1])
         creditCardWrapper.classList.add('discover')
     }
+
+    let inputValueArray = inputValue.split('')
+    for(let i = 4; i < inputValueArray.length; i += 5){
+        inputValueArray.splice(i, 0, ' ')
+    }
+    console.log(inputValueArray.join(''))
+
+    cardNumberDivs[0].textContent = inputValueArray.join('')
+    cardNumberDivs[1].textContent = inputValueArray.join('')
+    
 })
 
 cardHolderInput.addEventListener('input', event => {
