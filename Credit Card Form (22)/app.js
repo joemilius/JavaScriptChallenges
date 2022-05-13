@@ -8,6 +8,7 @@ let cardNumberDivs = document.querySelector('.card-number').children
 let cardHolderDivs = document.querySelector('.card-holder').children
 let expirationDateDivs = document.querySelector('.expiration-date').children
 let signatureDiv = document.querySelector('.signature')
+let cvvDiv = document.querySelector('.cvv')
 console.log(cardNumberDivs)
 
 
@@ -56,23 +57,17 @@ cvvInput.addEventListener('blur', event => {
 })
 
 cvvInput.addEventListener('input', event => {
-    console.log(event.target.value)
-    
+    cvvDiv.textContent = event.target.value
 })
 
 expirationMonthSelect.addEventListener('change', event => {
-    console.log(event.target.value)
     let month = event.target.value.length > 1 ? event.target.value : `0${event.target.value}`
     let currentExpirationYear = expirationDateDivs[0].textContent.split('/')[1]
     expirationDateDivs[0].textContent = `${month}/${currentExpirationYear}`
     expirationDateDivs[1].textContent = `${month}/${currentExpirationYear}`
-    
-    console.log(currentExpirationYear)
-
 })
 
 expirationYearSelect.addEventListener('change', event => {
-    console.log(event.target.value)
     let currentExpirationMonth = expirationDateDivs[0].textContent.split('/')[0]
     expirationDateDivs[0].textContent = `${currentExpirationMonth}/${event.target.value}`
     expirationDateDivs[1].textContent = `${currentExpirationMonth}/${event.target.value}`
