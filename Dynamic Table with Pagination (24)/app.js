@@ -180,3 +180,85 @@ const data = [
         title: 'Scrum Master'
     },
 ]
+
+let index1 = 0
+let index2 = 10
+let renderData = data.slice(index1, index2)
+let tableBody = document.querySelector('tbody')
+tableBody.innerHTML = ''
+function renderTable(){
+renderData.forEach(employee => {
+    let tr = document.createElement('tr')
+    let tdId = document.createElement('td')
+    let tdName = document.createElement('td')
+    let tdEmail = document.createElement('td')
+    let tdTitle = document.createElement('td')
+    let tdButton = document.createElement('td')
+    let nameInput = document.createElement('input')
+    let emailInput = document.createElement('input')
+    let titleInput = document.createElement('input')
+    let updateButton = document.createElement('button')
+    let editButton = document.createElement('button')
+    let updateImg = document.createElement('img')
+    let editImg = document.createElement('img')
+
+    tdId.textContent = employee.id
+    tdName.className = 'name'
+
+    nameInput.setAttribute('type', 'text')
+    nameInput.setAttribute('disabled', 'disabled')
+    nameInput.setAttribute('name', `person-name-${employee.id}`)
+    nameInput.setAttribute('value', `${employee.name}`)
+
+    emailInput.setAttribute('type', 'text')
+    emailInput.setAttribute('disabled', 'disabled')
+    emailInput.setAttribute('name', `person-email-${employee.id}`)
+    emailInput.setAttribute('value', `${employee.email}`)
+
+    titleInput.setAttribute('type', 'text')
+    titleInput.setAttribute('disabled', 'disabled')
+    titleInput.setAttribute('name', `person-title-${employee.id}`)
+    titleInput.setAttribute('value', `${employee.title}`)
+
+    updateButton.className = 'update'
+    updateButton.id = `personUpdate${employee.id}`
+    updateButton.setAttribute('name', `person-update-${employee.id}`)
+
+    editButton.className = 'edit'
+    editButton.id = `personEdit${employee.id}`
+    editButton.setAttribute('name', `person-edit-${employee.id}`)
+
+    updateImg.src = "./images/update.svg"
+    updateImg.className = "update"
+    updateImg.alt = "Update"
+
+    editImg.src = "./images/edit.svg"
+    editImg.className = "edit"
+    editImg.alt = "Edit"
+
+    tableBody.append(tr)
+    tr.append(tdId, tdName, tdEmail, tdTitle, tdButton)
+    tdName.append(nameInput)
+    tdEmail.append(emailInput)
+    tdTitle.append(titleInput)
+    tdButton.append(updateButton, editButton)
+    updateButton.append(updateImg)
+    editButton.append(editImg)
+
+    tdButton.addEventListener('click', event => {
+        console.log(event)
+        if(tr.className === 'edit'){
+            tr.className = ''
+        }else{
+            tr.className = 'edit'
+            nameInput.removeAttribute('disabled')
+            emailInput.removeAttribute('disabled')
+            titleInput.removeAttribute('disabled')
+        }
+    })
+
+})
+}
+renderTable()
+
+
