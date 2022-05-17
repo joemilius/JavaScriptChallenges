@@ -185,6 +185,12 @@ let index1 = 0
 let index2 = 10
 let renderData = data.slice(index1, index2)
 let tableBody = document.querySelector('tbody')
+let idSortButton = document.querySelectorAll('.ascending')[0]
+let nameSortButton = document.querySelectorAll('.sort')[1]
+let emailSortButton = document.querySelectorAll('.sort')[2]
+let titleSortButton = document.querySelectorAll('.sort')[3]
+console.log(idSortButton)
+
 tableBody.innerHTML = ''
 function renderTable(){
 renderData.forEach(employee => {
@@ -261,4 +267,7 @@ renderData.forEach(employee => {
 }
 renderTable()
 
-
+idSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => a.id - b.id)
+    console.log(sortedData)
+})
