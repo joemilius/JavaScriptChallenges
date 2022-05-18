@@ -185,14 +185,16 @@ let index1 = 0
 let index2 = 10
 let renderData = data.slice(index1, index2)
 let tableBody = document.querySelector('tbody')
-let idSortButton = document.querySelectorAll('.ascending')[0]
-let nameSortButton = document.querySelectorAll('.sort')[1]
-let emailSortButton = document.querySelectorAll('.sort')[2]
-let titleSortButton = document.querySelectorAll('.sort')[3]
-console.log(idSortButton)
+let sortButtons = document.querySelectorAll('.sort')
+let idAscendingSortButton = document.querySelectorAll('path.ascending')[0]
+let nameAscendingSortButton = document.querySelectorAll('path.ascending')[1]
+let emailAscendingSortButton = document.querySelectorAll('path.ascending')[2]
+let titleAscendingSortButton = document.querySelectorAll('path.ascending')[3]
+let idDescendingSortButton = document.querySelectorAll('path.descending')[0]
+console.log(idDescendingSortButton)
 
-tableBody.innerHTML = ''
 function renderTable(){
+    tableBody.innerHTML = ''
 renderData.forEach(employee => {
     let tr = document.createElement('tr')
     let tdId = document.createElement('td')
@@ -267,7 +269,23 @@ renderData.forEach(employee => {
 }
 renderTable()
 
-idSortButton.addEventListener('click', event => {
+idAscendingSortButton.addEventListener('click', event => {
     let sortedData = data.sort((a, b) => a.id - b.id)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('ascending')
+})
+
+idDescendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => b.id - a.id)
     console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('descending')
 })
