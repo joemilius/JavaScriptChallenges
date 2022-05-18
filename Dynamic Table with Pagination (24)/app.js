@@ -191,81 +191,83 @@ let nameAscendingSortButton = document.querySelectorAll('path.ascending')[1]
 let emailAscendingSortButton = document.querySelectorAll('path.ascending')[2]
 let titleAscendingSortButton = document.querySelectorAll('path.ascending')[3]
 let idDescendingSortButton = document.querySelectorAll('path.descending')[0]
-console.log(idDescendingSortButton)
+let nameDescendingSortButton = document.querySelectorAll('path.descending')[1]
+let emailDescendingSortButton = document.querySelectorAll('path.descending')[2]
+let titleDescendingSortButton = document.querySelectorAll('path.descending')[3]
 
 function renderTable(){
     tableBody.innerHTML = ''
-renderData.forEach(employee => {
-    let tr = document.createElement('tr')
-    let tdId = document.createElement('td')
-    let tdName = document.createElement('td')
-    let tdEmail = document.createElement('td')
-    let tdTitle = document.createElement('td')
-    let tdButton = document.createElement('td')
-    let nameInput = document.createElement('input')
-    let emailInput = document.createElement('input')
-    let titleInput = document.createElement('input')
-    let updateButton = document.createElement('button')
-    let editButton = document.createElement('button')
-    let updateImg = document.createElement('img')
-    let editImg = document.createElement('img')
+    renderData.forEach(employee => {
+        let tr = document.createElement('tr')
+        let tdId = document.createElement('td')
+        let tdName = document.createElement('td')
+        let tdEmail = document.createElement('td')
+        let tdTitle = document.createElement('td')
+        let tdButton = document.createElement('td')
+        let nameInput = document.createElement('input')
+        let emailInput = document.createElement('input')
+        let titleInput = document.createElement('input')
+        let updateButton = document.createElement('button')
+        let editButton = document.createElement('button')
+        let updateImg = document.createElement('img')
+        let editImg = document.createElement('img')
 
-    tdId.textContent = employee.id
-    tdName.className = 'name'
+        tdId.textContent = employee.id
+        tdName.className = 'name'
 
-    nameInput.setAttribute('type', 'text')
-    nameInput.setAttribute('disabled', 'disabled')
-    nameInput.setAttribute('name', `person-name-${employee.id}`)
-    nameInput.setAttribute('value', `${employee.name}`)
+        nameInput.setAttribute('type', 'text')
+        nameInput.setAttribute('disabled', 'disabled')
+        nameInput.setAttribute('name', `person-name-${employee.id}`)
+        nameInput.setAttribute('value', `${employee.name}`)
 
-    emailInput.setAttribute('type', 'text')
-    emailInput.setAttribute('disabled', 'disabled')
-    emailInput.setAttribute('name', `person-email-${employee.id}`)
-    emailInput.setAttribute('value', `${employee.email}`)
+        emailInput.setAttribute('type', 'text')
+        emailInput.setAttribute('disabled', 'disabled')
+        emailInput.setAttribute('name', `person-email-${employee.id}`)
+        emailInput.setAttribute('value', `${employee.email}`)
 
-    titleInput.setAttribute('type', 'text')
-    titleInput.setAttribute('disabled', 'disabled')
-    titleInput.setAttribute('name', `person-title-${employee.id}`)
-    titleInput.setAttribute('value', `${employee.title}`)
+        titleInput.setAttribute('type', 'text')
+        titleInput.setAttribute('disabled', 'disabled')
+        titleInput.setAttribute('name', `person-title-${employee.id}`)
+        titleInput.setAttribute('value', `${employee.title}`)
 
-    updateButton.className = 'update'
-    updateButton.id = `personUpdate${employee.id}`
-    updateButton.setAttribute('name', `person-update-${employee.id}`)
+        updateButton.className = 'update'
+        updateButton.id = `personUpdate${employee.id}`
+        updateButton.setAttribute('name', `person-update-${employee.id}`)
 
-    editButton.className = 'edit'
-    editButton.id = `personEdit${employee.id}`
-    editButton.setAttribute('name', `person-edit-${employee.id}`)
+        editButton.className = 'edit'
+        editButton.id = `personEdit${employee.id}`
+        editButton.setAttribute('name', `person-edit-${employee.id}`)
 
-    updateImg.src = "./images/update.svg"
-    updateImg.className = "update"
-    updateImg.alt = "Update"
+        updateImg.src = "./images/update.svg"
+        updateImg.className = "update"
+        updateImg.alt = "Update"
 
-    editImg.src = "./images/edit.svg"
-    editImg.className = "edit"
-    editImg.alt = "Edit"
+        editImg.src = "./images/edit.svg"
+        editImg.className = "edit"
+        editImg.alt = "Edit"
 
-    tableBody.append(tr)
-    tr.append(tdId, tdName, tdEmail, tdTitle, tdButton)
-    tdName.append(nameInput)
-    tdEmail.append(emailInput)
-    tdTitle.append(titleInput)
-    tdButton.append(updateButton, editButton)
-    updateButton.append(updateImg)
-    editButton.append(editImg)
+        tableBody.append(tr)
+        tr.append(tdId, tdName, tdEmail, tdTitle, tdButton)
+        tdName.append(nameInput)
+        tdEmail.append(emailInput)
+        tdTitle.append(titleInput)
+        tdButton.append(updateButton, editButton)
+        updateButton.append(updateImg)
+        editButton.append(editImg)
 
-    tdButton.addEventListener('click', event => {
-        console.log(event)
-        if(tr.className === 'edit'){
-            tr.className = ''
-        }else{
-            tr.className = 'edit'
-            nameInput.removeAttribute('disabled')
-            emailInput.removeAttribute('disabled')
-            titleInput.removeAttribute('disabled')
-        }
+        tdButton.addEventListener('click', event => {
+        
+            if(tr.className === 'edit'){
+                tr.className = ''
+            }else{
+                tr.className = 'edit'
+                nameInput.removeAttribute('disabled')
+                emailInput.removeAttribute('disabled')
+                titleInput.removeAttribute('disabled')
+            }
+        })
+
     })
-
-})
 }
 renderTable()
 
@@ -281,11 +283,50 @@ idAscendingSortButton.addEventListener('click', event => {
 
 idDescendingSortButton.addEventListener('click', event => {
     let sortedData = data.sort((a, b) => b.id - a.id)
-    console.log(sortedData)
     renderData = sortedData.slice(index1, index2)
     renderTable()
     for(let i = 0; i < sortButtons.length; i++){
         sortButtons[i].className = 'sort'
     }
     event.target.parentNode.parentNode.classList.add('descending')
+})
+
+nameAscendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.name.toLowerCase() > b.name.toLowerCase()){
+            return 1
+        }else if(a.name.toLowerCase() < b.name.toLowerCase()){
+            return -1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('ascending')
+})
+
+nameDescendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.name.toLowerCase() > b.name.toLowerCase()){
+            return -1
+        }else if(a.name.toLowerCase() < b.name.toLowerCase()){
+            return 1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('ascending')
 })
