@@ -194,6 +194,7 @@ let idDescendingSortButton = document.querySelectorAll('path.descending')[0]
 let nameDescendingSortButton = document.querySelectorAll('path.descending')[1]
 let emailDescendingSortButton = document.querySelectorAll('path.descending')[2]
 let titleDescendingSortButton = document.querySelectorAll('path.descending')[3]
+console.log(titleAscendingSortButton)
 
 function renderTable(){
     tableBody.innerHTML = ''
@@ -328,5 +329,85 @@ nameDescendingSortButton.addEventListener('click', event => {
     for(let i = 0; i < sortButtons.length; i++){
         sortButtons[i].className = 'sort'
     }
+    event.target.parentNode.parentNode.classList.add('descending')
+})
+
+emailAscendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.email.toLowerCase() > b.email.toLowerCase()){
+            return 1
+        }else if(a.email.toLowerCase() < b.email.toLowerCase()){
+            return -1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
     event.target.parentNode.parentNode.classList.add('ascending')
+})
+
+emailDescendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.email.toLowerCase() > b.email.toLowerCase()){
+            return -1
+        }else if(a.email.toLowerCase() < b.email.toLowerCase()){
+            return 1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('descending')
+})
+
+titleAscendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.title.toLowerCase() > b.title.toLowerCase()){
+            return 1
+        }else if(a.title.toLowerCase() < b.title.toLowerCase()){
+            return -1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('ascending')
+})
+
+titleDescendingSortButton.addEventListener('click', event => {
+    let sortedData = data.sort((a, b) => {
+        if(a.title.toLowerCase() > b.title.toLowerCase()){
+            return -1
+        }else if(a.title.toLowerCase() < b.title.toLowerCase()){
+            return 1
+        }else {
+            return 0
+        }
+        })
+    console.log(sortedData)
+    renderData = sortedData.slice(index1, index2)
+    renderTable()
+
+    for(let i = 0; i < sortButtons.length; i++){
+        sortButtons[i].className = 'sort'
+    }
+    event.target.parentNode.parentNode.classList.add('descending')
 })
