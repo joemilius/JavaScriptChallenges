@@ -183,7 +183,7 @@ const data = [
 
 let index1 = 0
 let index2 = 10
-let renderData = data.slice(index1, index2)
+let renderData = data
 let tableBody = document.querySelector('tbody')
 let sortButtons = document.querySelectorAll('.sort')
 let idAscendingSortButton = document.querySelectorAll('path.ascending')[0]
@@ -194,11 +194,17 @@ let idDescendingSortButton = document.querySelectorAll('path.descending')[0]
 let nameDescendingSortButton = document.querySelectorAll('path.descending')[1]
 let emailDescendingSortButton = document.querySelectorAll('path.descending')[2]
 let titleDescendingSortButton = document.querySelectorAll('path.descending')[3]
-console.log(titleAscendingSortButton)
+let previousButton = document.querySelector('#previous')
+let nextButton = document.querySelector('#next')
+let currentPage = document.querySelector('#currentPage')
+let pageValue = parseInt(currentPage.value)
+
 
 function renderTable(){
     tableBody.innerHTML = ''
-    renderData.forEach(employee => {
+    let displayData = renderData.slice(index1, index2)
+    console.log(displayData)
+    displayData.forEach(employee => {
         let tr = document.createElement('tr')
         let tdId = document.createElement('td')
         let tdName = document.createElement('td')
@@ -274,7 +280,7 @@ renderTable()
 
 idAscendingSortButton.addEventListener('click', event => {
     let sortedData = data.sort((a, b) => a.id - b.id)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
     for(let i = 0; i < sortButtons.length; i++){
         sortButtons[i].className = 'sort'
@@ -284,7 +290,7 @@ idAscendingSortButton.addEventListener('click', event => {
 
 idDescendingSortButton.addEventListener('click', event => {
     let sortedData = data.sort((a, b) => b.id - a.id)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
     for(let i = 0; i < sortButtons.length; i++){
         sortButtons[i].className = 'sort'
@@ -303,7 +309,7 @@ nameAscendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
@@ -323,7 +329,7 @@ nameDescendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
@@ -343,7 +349,7 @@ emailAscendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
@@ -363,7 +369,7 @@ emailDescendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
@@ -383,7 +389,7 @@ titleAscendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
@@ -403,11 +409,33 @@ titleDescendingSortButton.addEventListener('click', event => {
         }
         })
     console.log(sortedData)
-    renderData = sortedData.slice(index1, index2)
+    renderData = sortedData
     renderTable()
 
     for(let i = 0; i < sortButtons.length; i++){
         sortButtons[i].className = 'sort'
     }
     event.target.parentNode.parentNode.classList.add('descending')
+})
+
+previousButton.addEventListener('click', event => {
+    if(index1 > 0){
+        index1 -= 10
+        index2 -= 10
+        renderTable()
+        pageValue -= 1
+        currentPage.value = pageValue
+        console.log(currentPage.value, pageValue)
+    }
+})
+
+nextButton.addEventListener('click', event => {
+    if(index2 < data.length){
+        index1 += 10
+        index2 += 10
+        console.log(index1, index2)
+        renderTable()
+        pageValue += 1
+        currentPage.value = pageValue
+    }
 })

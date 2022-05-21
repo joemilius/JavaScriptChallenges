@@ -1,3 +1,4 @@
+import WEATHER_API from "./env"
 const daysOfWeekMap = {
     0: 'SUN', 
     1: 'MON', 
@@ -21,6 +22,6 @@ Find Weather Api
 Fetch the week's weather and update the html with values for the weather of each day of the week
 Fetch is currently only giving the first three days instead of the first 7 days
 */
-fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API}`)
+fetch(`http://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API}`)
 .then(response => response.json())
 .then(data => console.log(data))
