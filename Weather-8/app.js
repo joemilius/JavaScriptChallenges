@@ -1,6 +1,6 @@
-require('dotenv').config({path: /Weather-8/.env})
-const fetch = require('node-fetch')
-
+import {process} from 'dotenv/config'
+import fetch from 'node-fetch'
+console.log(process)
 const daysOfWeekMap = {
     0: 'SUN', 
     1: 'MON', 
