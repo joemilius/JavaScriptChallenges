@@ -1,7 +1,7 @@
 // const process = require('dotenv').config()
 // const fetch = require('node-fetch')
 const apiKey = config.WEATHER_API_KEY
-console.log(apiKey)
+
 const daysOfWeekMap = {
     0: 'SUN', 
     1: 'MON', 
@@ -25,6 +25,55 @@ Find Weather Api
 Fetch the week's weather and update the html with values for the weather of each day of the week
 Fetch is currently only giving the first three days instead of the first 7 days
 */
-fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Denver&days=7&aqi=no&alerts=no`)
-.then(response => response.json())
-.then(data => console.log(data))
+let today = 'SAT'
+//Date().split(' ')[0].toUpperCase()
+console.log(today)
+let day2 = ''
+let day3 = ''
+
+for(let key in daysOfWeekMap){
+    let second
+    let third
+    if(today === 'FRI'){
+        second = 6
+        third = 0
+        day2 = daysOfWeekMap[second]
+        day3 = daysOfWeekMap[third]
+    }else if(today === 'SAT'){
+        second = 0
+        third = 1
+        day2 = daysOfWeekMap[second]
+        day3 = daysOfWeekMap[third]
+    }else if(today === daysOfWeekMap[key]){
+        second = parseInt(key) + 1
+        third = parseInt(key) + 2
+        day2 = daysOfWeekMap[second]
+        day3 = daysOfWeekMap[third]
+        
+    }
+    console.log(day2, day3)
+}
+
+let wrapperDiv = document.querySelector('.wrapper')
+//wrapperDiv.innerHTML = ''
+let weather = []
+
+// function getForecast(){
+//     fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Denver&days=7&aqi=no&alerts=no`)
+//     .then(response => response.json())
+//     .then(data => {
+//         weather = data.forecast.forecastday
+//         weather.forEach(day => renderForecast(day))
+//     })
+// }
+// getForecast()
+
+function renderForecast(day){
+    console.log(day)
+    let dayDiv = document.createElement('div')
+
+}
+
+
+
+
