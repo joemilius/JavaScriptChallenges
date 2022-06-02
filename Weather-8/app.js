@@ -1,6 +1,7 @@
-import {process} from 'dotenv/config'
-import fetch from 'node-fetch'
-console.log(process)
+// const process = require('dotenv').config()
+// const fetch = require('node-fetch')
+const apiKey = config.WEATHER_API_KEY
+console.log(apiKey)
 const daysOfWeekMap = {
     0: 'SUN', 
     1: 'MON', 
@@ -24,6 +25,6 @@ Find Weather Api
 Fetch the week's weather and update the html with values for the weather of each day of the week
 Fetch is currently only giving the first three days instead of the first 7 days
 */
-fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API}&q=Denver&days=7&aqi=no&alerts=no`)
+fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Denver&days=7&aqi=no&alerts=no`)
 .then(response => response.json())
 .then(data => console.log(data))
