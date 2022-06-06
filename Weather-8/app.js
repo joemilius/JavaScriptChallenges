@@ -78,6 +78,9 @@ function renderForecast(day){
     dateDiv.textContent = dayOfMonth
     tempDiv.textContent = parseInt(day.day.maxtemp_f)
     degreesSpan.innerHTML = '&deg;'
+    weatherDiv.innerHTML = ` <svg role="img">
+                                <use xlink:href="#${}" width="264" height="166" viewBox="0 0 264 166"></use>
+                            </svg>`
     lowDiv.innerHTML = `<svg role="img" class="icon">
                             <use xlink:href="#low"></use>
                         </svg>
@@ -98,6 +101,22 @@ function renderForecast(day){
     contentDiv.appendChild(lowDiv)
     tempDiv.appendChild(degreesSpan)
 
+}
+
+function weatherType(string){
+    if(string.toLowerCase().includes('cloudy')){
+        return 'cloudy'
+    }else if(string.toLowerCase().includes('sunny') || string.toLowerCase().includes('clear')){
+        return 'sunny'
+    }else if(string.toLowerCase().includes('stormy')){
+        return 'stormy'
+    }else if(string.toLowerCase().includes('snowy')){
+        return 'snowy'
+    }else if(string.toLowerCase().includes('partly cloudy')){
+        return 'partly-cloudy'
+    }else if(string.toLowerCase().includes('rain')){
+        return 'rainy'
+    }
 }
 
 
