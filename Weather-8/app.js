@@ -66,7 +66,7 @@ function renderForecast(day){
     dayDiv.className = 'day'
     dayOfWeekDiv.className = 'day-of-week'
     dateDiv.className = 'date'
-    barDiv.className = 'bar'
+    barDiv.className = `bar ${weatherType(day.day.condition.text)}`
     weatherDiv.className = 'weather'
     tempDiv.className = 'temperature'
     contentDiv.className = 'content'
@@ -78,8 +78,8 @@ function renderForecast(day){
     dateDiv.textContent = dayOfMonth
     tempDiv.textContent = parseInt(day.day.maxtemp_f)
     degreesSpan.innerHTML = '&deg;'
-    weatherDiv.innerHTML = ` <svg role="img">
-                                <use xlink:href="#${}" width="264" height="166" viewBox="0 0 264 166"></use>
+    weatherDiv.innerHTML = ` <svg role="img" width="${iconNameToSizeMap[weatherType(day.day.condition.text)].width}" height="${iconNameToSizeMap[weatherType(day.day.condition.text)].height}" viewBox="0 0 ${iconNameToSizeMap[weatherType(day.day.condition.text)].width} ${iconNameToSizeMap[weatherType(day.day.condition.text)].height}">
+                                <use xlink:href="#${weatherType(day.day.condition.text)}"></use>
                             </svg>`
     lowDiv.innerHTML = `<svg role="img" class="icon">
                             <use xlink:href="#low"></use>
@@ -89,6 +89,9 @@ function renderForecast(day){
                             <use xlink:href="#precipitation"></use>
                          </svg>
                          ${day.day.daily_chance_of_rain}%`
+
+    console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].width)
+    console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].height)
 
     wrapperDiv.appendChild(dayDiv)
     dayDiv.appendChild(dayOfWeekDiv)
@@ -100,7 +103,6 @@ function renderForecast(day){
     contentDiv.appendChild(precipDiv)
     contentDiv.appendChild(lowDiv)
     tempDiv.appendChild(degreesSpan)
-
 }
 
 function weatherType(string){
