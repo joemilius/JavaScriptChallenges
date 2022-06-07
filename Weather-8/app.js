@@ -29,93 +29,93 @@ let today = Date().split(' ')[0].toUpperCase() === 'THU' ? 'THUR' : Date().split
 
 
 
-let wrapperDiv = document.querySelector('.wrapper')
-wrapperDiv.innerHTML = ''
-let weather = []
+// let wrapperDiv = document.querySelector('.wrapper')
+// wrapperDiv.innerHTML = ''
+// let weather = []
 
-function getForecast(){
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Denver&days=7&aqi=no&alerts=no`)
-    .then(response => response.json())
-    .then(data => {
-        weather = data.forecast.forecastday
-        console.log(weather)
-        weather.forEach(day => renderForecast(day))
-    })
-}
-getForecast()
+// function getForecast(){
+//     fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Denver&days=7&aqi=no&alerts=no`)
+//     .then(response => response.json())
+//     .then(data => {
+//         weather = data.forecast.forecastday
+//         console.log(weather)
+//         weather.forEach(day => renderForecast(day))
+//     })
+// }
+// getForecast()
 
-function renderForecast(day){
-    let date = day.date
-    let dateArray = date.split('-')
-    dateArray[2] = date.split('-')[2].charAt(0) === '0' ? date.split('-')[2].charAt(1) : date.split('-')[2]
-    let newDate = Date(dateArray.join('-'))
-    let dayOfWeek = newDate.split(' ')[0].toUpperCase() === 'THU' ? 'THUR' : newDate.split(' ')[0].toUpperCase()
-    let dayOfMonth = date.split('-')[2].charAt(0) === '0' ? date.split('-')[2].charAt(1) : date.split('-')[2]
+// function renderForecast(day){
+//     let date = day.date
+//     let dateArray = date.split('-')
+//     dateArray[2] = date.split('-')[2].charAt(0) === '0' ? date.split('-')[2].charAt(1) : date.split('-')[2]
+//     let newDate = Date(dateArray.join('-'))
+//     let dayOfWeek = newDate.split(' ')[0].toUpperCase() === 'THU' ? 'THUR' : newDate.split(' ')[0].toUpperCase()
+//     let dayOfMonth = date.split('-')[2].charAt(0) === '0' ? date.split('-')[2].charAt(1) : date.split('-')[2]
     
-    let dayDiv = document.createElement('div')
-    let dayOfWeekDiv = document.createElement('div')
-    let dateDiv = document.createElement('div')
-    let barDiv = document.createElement('div')
-    let weatherDiv = document.createElement('div')
-    let tempDiv = document.createElement('div')
-    let contentDiv = document.createElement('div')
-    let precipDiv = document.createElement('div')
-    let lowDiv = document.createElement('div')
-    let degreesSpan = document.createElement('span')
+//     let dayDiv = document.createElement('div')
+//     let dayOfWeekDiv = document.createElement('div')
+//     let dateDiv = document.createElement('div')
+//     let barDiv = document.createElement('div')
+//     let weatherDiv = document.createElement('div')
+//     let tempDiv = document.createElement('div')
+//     let contentDiv = document.createElement('div')
+//     let precipDiv = document.createElement('div')
+//     let lowDiv = document.createElement('div')
+//     let degreesSpan = document.createElement('span')
 
-    dayDiv.className = 'day'
-    dayOfWeekDiv.className = 'day-of-week'
-    dateDiv.className = 'date'
-    barDiv.className = `bar ${weatherType(day.day.condition.text)}`
-    weatherDiv.className = 'weather'
-    tempDiv.className = 'temperature'
-    contentDiv.className = 'content'
-    precipDiv.className = 'precipitation'
-    lowDiv.className = 'low'
-    degreesSpan.className = 'degrees'
+//     dayDiv.className = 'day'
+//     dayOfWeekDiv.className = 'day-of-week'
+//     dateDiv.className = 'date'
+//     barDiv.className = `bar ${weatherType(day.day.condition.text)}`
+//     weatherDiv.className = 'weather'
+//     tempDiv.className = 'temperature'
+//     contentDiv.className = 'content'
+//     precipDiv.className = 'precipitation'
+//     lowDiv.className = 'low'
+//     degreesSpan.className = 'degrees'
 
-    dayOfWeekDiv.textContent = dayOfWeek
-    dateDiv.textContent = dayOfMonth
-    tempDiv.textContent = parseInt(day.day.maxtemp_f)
-    degreesSpan.innerHTML = '&deg;'
-    weatherDiv.innerHTML = ` <svg role="img" width="${iconNameToSizeMap[weatherType(day.day.condition.text)].width}" height="${iconNameToSizeMap[weatherType(day.day.condition.text)].height}" viewBox="0 0 ${iconNameToSizeMap[weatherType(day.day.condition.text)].width} ${iconNameToSizeMap[weatherType(day.day.condition.text)].height}">
-                                <use xlink:href="#${weatherType(day.day.condition.text)}"></use>
-                            </svg>`
-    lowDiv.innerHTML = `<svg role="img" class="icon">
-                            <use xlink:href="#low"></use>
-                        </svg>
-                        ${parseInt(day.day.mintemp_f)}&deg;`
-    precipDiv.innerHTML = `<svg role="img" class="icon">
-                            <use xlink:href="#precipitation"></use>
-                         </svg>
-                         ${day.day.daily_chance_of_rain}%`
+//     dayOfWeekDiv.textContent = dayOfWeek
+//     dateDiv.textContent = dayOfMonth
+//     tempDiv.textContent = parseInt(day.day.maxtemp_f)
+//     degreesSpan.innerHTML = '&deg;'
+//     weatherDiv.innerHTML = ` <svg role="img" width="${iconNameToSizeMap[weatherType(day.day.condition.text)].width}" height="${iconNameToSizeMap[weatherType(day.day.condition.text)].height}" viewBox="0 0 ${iconNameToSizeMap[weatherType(day.day.condition.text)].width} ${iconNameToSizeMap[weatherType(day.day.condition.text)].height}">
+//                                 <use xlink:href="#${weatherType(day.day.condition.text)}"></use>
+//                             </svg>`
+//     lowDiv.innerHTML = `<svg role="img" class="icon">
+//                             <use xlink:href="#low"></use>
+//                         </svg>
+//                         ${parseInt(day.day.mintemp_f)}&deg;`
+//     precipDiv.innerHTML = `<svg role="img" class="icon">
+//                             <use xlink:href="#precipitation"></use>
+//                          </svg>
+//                          ${day.day.daily_chance_of_rain}%`
 
-    console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].width)
-    console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].height)
+//     console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].width)
+//     console.log(iconNameToSizeMap[weatherType(day.day.condition.text)].height)
 
-    wrapperDiv.appendChild(dayDiv)
-    dayDiv.appendChild(dayOfWeekDiv)
-    dayDiv.appendChild(dateDiv)
-    dayDiv.appendChild(barDiv)
-    barDiv.appendChild(weatherDiv)
-    barDiv.appendChild(tempDiv)
-    barDiv.appendChild(contentDiv)
-    contentDiv.appendChild(precipDiv)
-    contentDiv.appendChild(lowDiv)
-    tempDiv.appendChild(degreesSpan)
-}
+//     wrapperDiv.appendChild(dayDiv)
+//     dayDiv.appendChild(dayOfWeekDiv)
+//     dayDiv.appendChild(dateDiv)
+//     dayDiv.appendChild(barDiv)
+//     barDiv.appendChild(weatherDiv)
+//     barDiv.appendChild(tempDiv)
+//     barDiv.appendChild(contentDiv)
+//     contentDiv.appendChild(precipDiv)
+//     contentDiv.appendChild(lowDiv)
+//     tempDiv.appendChild(degreesSpan)
+// }
 
 function weatherType(string){
-    if(string.toLowerCase().includes('cloudy')){
-        return 'cloudy'
+    if(string.toLowerCase().includes('partly cloudy')){
+        return 'partly-cloudy'
     }else if(string.toLowerCase().includes('sunny') || string.toLowerCase().includes('clear')){
         return 'sunny'
-    }else if(string.toLowerCase().includes('stormy')){
+    }else if(string.toLowerCase().includes('storm')){
         return 'stormy'
     }else if(string.toLowerCase().includes('snowy')){
         return 'snowy'
-    }else if(string.toLowerCase().includes('partly cloudy')){
-        return 'partly-cloudy'
+    }else if(string.toLowerCase().includes('cloudy')){
+        return 'cloudy'
     }else if(string.toLowerCase().includes('rain')){
         return 'rainy'
     }
@@ -123,5 +123,10 @@ function weatherType(string){
 
 
 
-
+console.log(weatherType('Partly cloudy and cool'))
+console.log(weatherType('Cloudy and cool'))
+console.log(weatherType('Clear and cool'))
+console.log(weatherType('Partly rainy and cool'))
+console.log(weatherType('Partly snowy and cool'))
+console.log(weatherType('Thunderstorms and lightning'))
 
